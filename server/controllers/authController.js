@@ -32,6 +32,7 @@ async function signup(req, res) {
 }
 
 async function login(req, res) {
+  console.log(req.body);
   const parsed = loginSchema.safeParse(req.body);
   if (parsed.success) {
     const data = parsed.data;
@@ -87,5 +88,4 @@ async function login(req, res) {
   }
 }
 
-
-module.exports = { login, signup }
+module.exports = { login, signup };
