@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { z } from "zod";
 
-const userSchema = z.object({
-  name: z.string().min(3, "Name must be atleast 3 characters long."),
+const loginSchema = z.object({
   email: z.string().email("Email is required"),
   password: z.string().min(6, "Password must be atleast 6 characters long."),
   isAgent: z.boolean(),
@@ -20,7 +19,7 @@ export const loginAsync = createAsyncThunk(
   async (data, { dispatch, getState }) => {
     try {
       console.log({ data });
-      const parsed = userSchema.safeParse(data);
+      const parsed = loginSchema.safeParse(data);
       if (parsed.success) {
         const validated = parsed.data;
         console.log(validated);
@@ -37,7 +36,7 @@ export const loginAsync = createAsyncThunk(
           console.log(data.errors);
           return dispatch(setErrors(data.errors));
         }
-        console.log("done!");
+        console.log("done!", data);
         dispatch(setErrors([]));
         dispatch(setUser(data.user));
         dispatch(setToken(data.token));
@@ -110,7 +109,7 @@ export const authSlice = createSlice({
     },
     setUser: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(action.payload));
     },
     setToken: (state, token) => {
       localStorage.setItem("token", JSON.stringify(token));
