@@ -9,6 +9,7 @@ require("dotenv").config();
 const userRouter = require("./routes/userRouter");
 const tripRouter = require("./routes/tripRouter");
 const reviewRouter = require("./routes/reviewRouter")
+const authRouter = require("./routes/authRouter")
 // const requireAuth = require("./middleware/requireAuth");
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(cors());
 app.options("*", cors());
 
+app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/trips", tripRouter);
 app.use("/reviews", reviewRouter)
