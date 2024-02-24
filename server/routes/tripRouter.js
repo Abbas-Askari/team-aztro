@@ -6,8 +6,4 @@ router.get("/", getAllTrips);
 
 router.post("/", createTrip);
 
-// router.post("/", (req, res) => {
-//   res.json("noice");
-// });
-
 module.exports = router;

@@ -1,4 +1,4 @@
-const User = require("../model/user");
+const User = require("../models/userModel");
 const z = require("zod");
 
 const userSchema = z.object({
