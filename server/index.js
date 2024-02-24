@@ -4,18 +4,16 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const requireAuth = require("./middleware/requireAuth");
+
+const agentRouter = require("./routes/agentRouter");
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.options("*", cors());
-app.use("/api/auth", authRouter);
 
-app.use("/api/public", publicRouter);
-
-app.use(requireAuth);
+app.use("/users", agentRouter);
 
 mongoose
   .connect(process.env.MONGO_DB_URI)
