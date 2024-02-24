@@ -11,6 +11,7 @@ const tripSchema = z.object({
   reviews: z.array(z.string()),
   price: z.number(),
   agent: z.string(),
+  images: z.array(z.string()),
 });
 
 async function getAllTrips(req, res) {

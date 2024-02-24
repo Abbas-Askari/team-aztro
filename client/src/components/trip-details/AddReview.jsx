@@ -1,6 +1,23 @@
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { useState } from "react";
+import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
 const AddReview = () => {
+  const [stars, setStars] = useState(3);
+  const [content, setContent] = useState("");
+  const [title, setTitle] = useState("the default title");
+
+  const { id: tripId } = useParams();
+
+  fetch(import.meta.env.VITE_BACKEND + "/trips/trip/" + tripId + "/", {
+    method: "POST",
+    body: JSON.stringify({
+      title,
+      content,
+      rating: stars,
+    }),
+  });
+
   return (
     <div className="pt-10">
       <h1 className="heading">attach your review</h1>
@@ -8,9 +25,13 @@ const AddReview = () => {
         <h1 className="text-xl font-semibold">Rating</h1>
         <div className="flex-align-center gap-x-3">
           {Array.apply(null, { length: 5 }).map((_, i) => (
-            <div key={i} className="text-secondaryYellow">
-              {i < 4 ? <FaStar /> : <FaStarHalfAlt />}
-            </div>
+            <button
+              onClick={() => setStars(i + 1)}
+              key={i}
+              className="text-secondaryYellow"
+            >
+              {i < stars ? <FaStar /> : <FaRegStar />}
+            </button>
           ))}
         </div>
       </div>
@@ -21,6 +42,8 @@ const AddReview = () => {
           rows="4"
           className="outline-none w-full p-2 border border-slate-300 dark:border-dark bg-slate-200 dark:bg-card-dark rounded-lg"
           placeholder="Write your detail review here..."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         ></textarea>
         <div className="flex-align-center gap-x-4 justify-end">
           <button className="btn bg-slate-200 hover:bg-slate-300 dark:bg-card-dark dark:hover:bg-hover-color-dark">

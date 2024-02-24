@@ -1,32 +1,33 @@
-const User = require("../models/userModel")
-const Trip = require("../models/tripModel")
+const User = require("../models/userModel");
+const Trip = require("../models/tripModel");
+const mongoose = require("mongoose");
 
 const getValidAgent = async (id) => {
   if (!mongoose.isValidObjectId(id)) {
-      return null
+    return null;
   }
-  
-  const user = await User.findById(id)
+
+  const user = await User.findById(id);
 
   if (!user || !user.isAgent) {
-      return null
+    return null;
   }
 
-  return user
-}
+  return user;
+};
 
 const getValidTrip = async (id) => {
   if (!mongoose.isValidObjectId(id)) {
-      return null
+    return null;
   }
-  
-  const trip = await Trip.findById(id)
+
+  const trip = await Trip.findById(id);
 
   if (!trip) {
-      return null
+    return null;
   }
 
-  return trip
-}
+  return trip;
+};
 
-module.exports = { getValidAgent, getValidTrip}
+module.exports = { getValidAgent, getValidTrip };
