@@ -20,11 +20,17 @@ export const loginAsync = createAsyncThunk(
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null,
-    token: null,
+    user: JSON.parse(localStorage.getItem("user")) || null,
+    token: JSON.parse(localStorage.getItem("token")) || null,
     errors: [],
   },
-  reducers: {},
+  reducers: {
+    logout: (state, action) => {
+      state.user = null
+      state.token = null
+      localStorage.clear()
+    }
+  },
 });
 
 // Action creators are generated for each case reducer function
