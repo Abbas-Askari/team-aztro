@@ -14,6 +14,7 @@ router.get("/", getAllTrips);
 router.get("/agent/:agentID", getUserTrips);
 router.get("/trip/:tripID", getTrip);
 router.post("/trip/:tripID/reviwes", requireAuth, createReview);
+router.get("/trip/:tripID/reviwes", requireAuth, createReview);
 router.post(
   "/",
   // upload.array("images"),

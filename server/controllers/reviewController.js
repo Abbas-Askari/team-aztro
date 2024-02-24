@@ -16,12 +16,11 @@ async function getAllReviews(req, res) {
 
 async function createReview(req, res) {
   req.body.user = req.user._id.toString();
-  req.body.trip = req.params.id;
+  // const { tripID } = req.params;
+  req.body.trip = req.params.tripID;
 
-  console.log("body: ", req.body);
+  console.log("body: ", req.body, "params: ", req.params);
   const data = reviewSchema.safeParse(req.body);
-
-  const { tripId } = req.params;
 
   if (data.success) {
     const validated = data.data;

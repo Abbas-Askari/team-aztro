@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
@@ -9,14 +9,23 @@ const AddReview = () => {
 
   const { id: tripId } = useParams();
 
-  fetch(import.meta.env.VITE_BACKEND + "/trips/trip/" + tripId + "/", {
-    method: "POST",
-    body: JSON.stringify({
-      title,
-      content,
-      rating: stars,
-    }),
-  });
+  function submit() {
+    console.log(localStorage.getItem("token"));
+    fetch(import.meta.env.VITE_BACKEND + "/trips/trip/" + tripId + "/reviwes", {
+      method: "POST",
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("token"),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        content,
+        rating: stars,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }
 
   return (
     <div className="pt-10">
@@ -49,7 +58,9 @@ const AddReview = () => {
           <button className="btn bg-slate-200 hover:bg-slate-300 dark:bg-card-dark dark:hover:bg-hover-color-dark">
             cancel
           </button>
-          <button className="btn btn-primary">submit</button>
+          <button onClick={submit} className="btn btn-primary">
+            submit
+          </button>
         </div>
       </div>
     </div>
