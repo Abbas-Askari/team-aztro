@@ -1,12 +1,21 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import Hero from "./components/Hero";
+import Navbar from "./components/Navbar";
 import "./App.css";
+import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0);
+  return(
 
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+    <>
+    <Navbar></Navbar>
+    <main className="relative overflow-hidden">
+      <Hero></Hero>
+    </main>
+    <Footer></Footer>
+    </>
+
+    
+  );
 }
 
 export default App;
