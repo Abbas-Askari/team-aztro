@@ -1,5 +1,3 @@
-import { createSlice } from "@reduxjs/toolkit";
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { z } from "zod";
 
@@ -13,7 +11,6 @@ const userSchema = z.object({
 export const loginAsync = createAsyncThunk(
   "auth/login",
   (data, { dispatch, getState }) => {
-    // const parsed = userSchema.
   }
 );
 

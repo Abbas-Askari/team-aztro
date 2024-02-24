@@ -1,152 +1,247 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Mulish&family=Nunito&family=Nunito+Sans:wght@400;600&family=Poppins:ital,wght@0,400;0,500;1,300;1,400&family=Questrial&family=Raleway&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Testing on phone offline */
+@font-face {
+  font-family: myFont;
+  src: url("../public/Questrial-Regular.ttf") format("truetype");
+}
 
+html {
+  @apply scroll-smooth;
+}
+
+*::-webkit-scrollbar {
+  @apply w-[5px] h-[5px];
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded bg-slate-400;
+}
+
+*::-webkit-scrollbar-track {
+  @apply !bg-transparent;
 }
 
 body {
-  font-family: Inter;
-  background-color: #fff;
+  @apply font-questrial bg-main-bg text-slate-700 dark:bg-main-dark dark:text-slate-300;
+  font-family: myFont;
 }
 
-@layer utilities {
-  .btn_white { 
-    @apply  border-white bg-white px-8 py-3 text-green-50
-  }
-  .btn_white_text  { 
-    @apply  border-white bg-white px-8 py-3 text-gray-90
-  }
-  .btn_green  { 
-    @apply  border-green-50 bg-green-50 px-8 py-5 text-white
-  }
-  .btn_dark_green { 
-    @apply  bg-green-90 px-8 py-4 text-white transition-all hover:bg-black
-  }
-  .btn_dark_green_outline  { 
-    @apply border-gray-20 bg-green-90 px-8 py-5 text-white
-  }
-  
-  .max-container {
-    @apply mx-auto max-w-[1440px];
-  }
+/* General styles */
+p,
+a,
+svg {
+  @apply text-muted;
+}
 
-  .padding-container {
-    @apply px-6 lg:px-20 3xl:px-0;
-  }
+a.btn {
+  @apply opacity-100;
+}
 
-  .flexCenter {
-    @apply flex items-center justify-center;
-  }
+footer a {
+  @apply text-sm transition-a;
+}
 
-  .flexBetween {
-    @apply flex items-center justify-between;
-  }
+footer a:hover {
+  @apply ml-2 text-primary;
+}
 
-  .flexStart {
-    @apply flex items-center justify-start;
-  }
-
-  .flexEnd {
-    @apply flex items-center justify-end;
-  }
-
-  .regular-64 {
-    @apply text-[64px] font-[400] leading-[120%];
-  }
-
-  .regular-40 {
-    @apply text-[40px] font-[400] leading-[120%];
-  }
-
-  .regular-32 {
-    @apply text-[32px] font-[400];
-  }
-
-  .regular-24 {
-    @apply text-[24px] font-[400];
-  }
-
-  .regular-20 {
-    @apply text-[20px] font-[400];
-  }
-
-  .regular-18 {
-    @apply text-[18px] font-[400];
-  }
-
-  .regular-16 {
-    @apply text-[16px] font-[400];
-  }
-
-  .regular-14 {
-    @apply text-[14px] font-[400];
-  }
-
-  .medium-14 {
-    @apply text-[14px] font-[600];
-  }
-
-  .bold-88 {
-    @apply text-[88px] font-[700] leading-[120%];
-  }
-
-  .bold-64 {
-    @apply text-[64px] font-[700] leading-[120%];
-  }
-
-  .bold-52 {
-    @apply text-[52px] font-[700] leading-[120%];
-  }
-
-  .bold-40 {
-    @apply text-[40px] font-[700] leading-[120%];
-  }
-
-  .bold-32 {
-    @apply text-[32px] font-[700] leading-[120%];
-  }
-
-  .bold-20 {
-    @apply text-[20px] font-[700];
-  }
-
-  .bold-18 {
-    @apply text-[18px] font-[700];
-  }
-
-  .bold-16 {
-    @apply text-[16px] font-[700];
-  }
-
-  .hero-map {
-    @apply absolute right-0 top-0 h-screen w-screen bg-pattern-2 bg-cover bg-center md:-right-28 xl:-top-60;
-  }
-
-  .camp-quote {
-    @apply absolute -right-6 bottom-4 w-[140px] lg:bottom-10 xl:-right-8 xl:w-[186px] 3xl:right-0;
-  }
-
-  .feature-phone {
-    @apply absolute top-[13%] z-10 hidden max-w-[1500px] rotate-[15deg] md:-left-16 lg:flex  3xl:left-20;
-  }
-
-  .get-app {
-    @apply max-container relative flex w-full  flex-col justify-between gap-32 overflow-hidden bg-green-90 bg-pattern bg-cover bg-center bg-no-repeat px-6 py-12 text-white sm:flex-row sm:gap-12 sm:py-24 lg:px-20 xl:max-h-[598px] 2xl:rounded-5xl;
-  }
+.heading {
+  @apply font-bold text-2xl capitalize;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-.hide-scrollbar {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+.card {
+  @apply p-4 bg-white border rounded-lg dark:bg-card-dark dark:border-dark;
+}
+
+.card-bordered {
+  @apply border dark:border-dark;
+}
+
+.btn {
+  @apply px-4 py-[0.35rem] rounded-lg transition-a sm:cursor-pointer capitalize flex-shrink-0;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-[#5f6fe6] shadow-md shadow-primary/60;
+}
+
+.btn-secondary {
+  @apply bg-secondaryBlue text-white hover:bg-[#3068f6];
+}
+
+.icon-box {
+  @apply grid flex-shrink-0 rounded-full w-9 h-9 place-items-center text-muted hover:bg-slate-200 dark:hover:bg-hover-color-dark transition-a sm:cursor-pointer;
+}
+
+/* Back to top button */
+.back-to-top-btn {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.back-to-top-btn.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+a.active {
+  @apply relative text-primary before:absolute before:w-full before:h-[2px] before:bg-primary before:left-0 before:-bottom-[0.85rem];
+}
+
+/* Modals*/
+.modal {
+  @apply fixed top-0 left-0 z-20 w-full h-full transition-transform duration-300 opacity-0 pointer-events-none bg-black/50 lg:static lg:opacity-100 lg:pointer-events-auto lg:bg-transparent;
+}
+
+.dialog {
+  @apply absolute left-0 px-2 top-0 max-w-[250px] lg:overflow-hidden overflow-auto lg:hover:overflow-auto w-full h-full bg-white dark:bg-card-dark -translate-x-[500px] transition-transform lg:fixed lg:translate-x-0 lg:border-r dark:border-dark;
+}
+
+/* Filter dialog and modal */
+.filter-modal {
+  @apply fixed w-full h-full top-0 left-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity md:static md:opacity-100 md:pointer-events-auto md:bg-transparent;
+}
+
+.filter-dialog {
+  @apply absolute  p-3 md:p-0 bg-white dark:bg-card-dark h-screen max-w-[300px] -translate-x-[500px] w-full max-h-screen overflow-auto transition-transform md:static md:max-w-full md:translate-x-0 md:max-h-fit md:h-fit md:bg-main-bg md:dark:!bg-main-dark;
+}
+
+.modal.open,
+.filter-modal.open,
+.dialog.open,
+.filter-dialog.open {
+  @apply translate-x-0 opacity-100 pointer-events-auto;
+}
+
+/* Check box & radio box */
+.input-check label,
+.input-radio label {
+  @apply relative cursor-pointer flex items-center text-slate-500 select-none;
+}
+
+.input-check input[type="checkbox"],
+.input-radio input[type="radio"] {
+  @apply cursor-pointer opacity-0 absolute;
+}
+
+.input-check label::before {
+  content: "";
+  @apply w-4 h-4 mr-2 rounded border border-primary;
+}
+
+.input-check input[type="checkbox"]:checked + label::before {
+  content: "✔";
+  @apply grid place-items-center text-slate-100 text-[0.7rem] bg-primary;
+}
+
+.input-radio label::before {
+  content: "";
+  @apply w-4 h-4 mr-2 rounded-full border border-primary;
+}
+.input-radio label::after {
+  content: "";
+  @apply absolute w-2 h-2 top-1/2 left-0 -translate-y-1/2 scale-0 ml-[0.25rem] bg-primary transition-a rounded-full;
+}
+
+.input-radio input[type="radio"]:checked + label::after {
+  @apply -translate-y-1/2 scale-100;
+}
+
+/* Loader */
+.loader {
+  @apply w-20 h-20 border-4 border-primary rounded-full;
+  border-block-start-color: transparent;
+  animation: rotate 1s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* -------------------------PAGINATION---------------------- */
+.wb-pagination {
+  @apply flex-align-center mt-4 w-full px-4 select-none;
+}
+
+.wb-pagination::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.wb-pagination .pagination-item {
+  @apply p-2;
+}
+
+.wb-pagination .pagination-item .pagination-link {
+  @apply text-inherit w-8 h-8 grid place-items-center mx-3 text-sm;
+}
+
+.wb-pagination .prev,
+.wb-pagination .next {
+  @apply inline-flex text-primary;
+}
+
+.wb-pagination .prev {
+  @apply mr-4;
+}
+.wb-pagination .next {
+  @apply ml-4;
+}
+
+.disabled {
+  @apply opacity-40;
+}
+
+.wb-pagination .pagination-item.pagination-link-active .pagination-link {
+  @apply bg-primary rounded-full text-white shadow-md shadow-primary/60;
+}
+
+@media (max-width: 640px) {
+  .wb-pagination {
+    @apply max-w-[320px] w-full overflow-auto;
+  }
+}
+
+/* React Tabs */
+.react-tabs__tab-list {
+  @apply !border-slate-300 dark:!border-hover-color-dark;
+}
+
+.react-tabs__tab {
+  @apply !border-0;
+}
+
+.react-tabs__tab--selected {
+  @apply !bg-transparent !border-b-2 !border-solid !border-primary !text-inherit;
+}
+
+.react-tabs__tab:focus:after {
+  @apply !hidden;
+}
+
+/* Skelton animation */
+.skeleton {
+  @apply animate-pulse;
+}
+
+/* Login & Sign-up heading didvider */
+.divider {
+  @apply relative before:absolute before:w-[45%] before:h-[2px] before:top-1/2 before:bg-slate-300 before:left-0  dark:before:bg-dark;
+  @apply relative after:absolute after:w-[45%] after:h-[2px] after:top-1/2 after:bg-gray-300 after:right-0 dark:after:bg-dark;
+}
+
+/* Semi Circle */
+.semi-circle {
+  border-block-end-color: transparent;
 }
