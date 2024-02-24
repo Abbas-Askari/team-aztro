@@ -1,5 +1,3 @@
-import { createSlice } from "@reduxjs/toolkit";
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { z } from "zod";
 
@@ -12,8 +10,27 @@ const userSchema = z.object({
 
 export const loginAsync = createAsyncThunk(
   "auth/login",
-  (data, { dispatch, getState }) => {
-    // const parsed = userSchema.
+  async (data, { dispatch, getState }) => {
+    const parsed = userSchema.safeParse(data);
+    if (parsed.success) {
+      const validated = parsed.data;
+      const res = await fetch(import.meta.env.VITE_BACKEND, {
+        body: JSON.stringify(validated),
+      });
+      const data = await res.json();
+      if (data.errors) {
+        return dispatch(setErros(data.errors));
+      }
+      dispatch(setUser(data.user));
+      dispatch(setToken(data.token));
+    } else {
+      const result = data.error;
+      const errors = result.errors.map((error) => ({
+        message: error.message,
+        path: error.path[0],
+      }));
+      dispatch(setErrors(errors));
+    }
   }
 );
 
@@ -21,13 +38,23 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
-    token: null,
     errors: [],
   },
-  reducers: {},
+  reducers: {
+    setErrors: (state, errors) => {
+      state.errors = errors;
+    },
+    setUser: (state, user) => {
+      state.user = user;
+      localStorage.setItem("user", JSON.stringify(user));
+    },
+    setToken: (state, token) => {
+      localStorage.setItem("token", JSON.stringify(token));
+    },
+  },
 });
 
 // Action creators are generated for each case reducer function
-export const {} = authSlice.actions;
+export const { setErrors, setUser, setToken } = authSlice.actions;
 
 export default authSlice.reducer;
