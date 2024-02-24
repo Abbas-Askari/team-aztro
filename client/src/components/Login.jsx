@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAsync } from "../authSlice";
+import { Navigate } from "react-router-dom";
 
 export default function Login() {
   const { errors } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.auth);
 
   console.log(errors);
   const {
@@ -16,6 +19,10 @@ export default function Login() {
     clearErrors,
     // formState: { errors },
   } = useForm();
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   console.log(errors);
 

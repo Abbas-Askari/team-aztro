@@ -2,31 +2,27 @@ import { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAsync } from "../authSlice";
+import { signupAsync } from "../authSlice";
+import { Navigate } from "react-router-dom";
 
-export default function Login() {
+export default function Signup() {
   const { errors } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   console.log(errors);
-  const {
-    register,
-    handleSubmit,
-    setError,
-    clearErrors,
-    // formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
+
+  const { user } = useSelector((state) => state.auth);
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   console.log(errors);
-
-  //   useEffect(() => {
-  //     console.log(errors);
-  //   }, [errors]);
 
   const submit = async (data) => {
     console.log("asdadasdasd", data);
     data.isAgent = data.isAgent === "true" ? true : false;
-    dispatch(loginAsync(data));
+    dispatch(signupAsync(data));
   };
 
   return (
@@ -41,7 +37,7 @@ export default function Login() {
         className="card flex flex-col gap-4 bg-base-200 p-4"
       >
         <h2 className=" font-semibold text-xl bg-primary py-3 px-5 text-white rounded-xl shadow shadow-red-400">
-          Login
+          Signup
         </h2>
         <label htmlFor="name">Username</label>
         <input
@@ -111,7 +107,7 @@ export default function Login() {
           </div>
         </div>
         <button className="btn btn-primary" type="submit" disabled={false}>
-          Login
+          Signup
         </button>
         {errors && (
           <div className="errors">

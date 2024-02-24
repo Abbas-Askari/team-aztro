@@ -8,6 +8,13 @@ const userSchema = z.object({
   isAgent: z.boolean(),
 });
 
+const signupSchema = z.object({
+  name: z.string().min(3, "Name must be atleast 3 characters long."),
+  email: z.string().email("Email is required"),
+  password: z.string().min(6, "Password must be atleast 6 characters long."),
+  isAgent: z.boolean(),
+});
+
 export const loginAsync = createAsyncThunk(
   "auth/login",
   async (data, { dispatch, getState }) => {
@@ -54,11 +61,11 @@ export const signupAsync = createAsyncThunk(
   async (data, { dispatch, getState }) => {
     try {
       console.log({ data });
-      const parsed = userSchema.safeParse(data);
+      const parsed = signupSchema.safeParse(data);
       if (parsed.success) {
         const validated = parsed.data;
         console.log(validated);
-        const res = await fetch(import.meta.env.VITE_BACKEND + "/auth/login", {
+        const res = await fetch(import.meta.env.VITE_BACKEND + "/auth/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
