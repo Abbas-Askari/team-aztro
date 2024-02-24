@@ -15,6 +15,7 @@ import {
   RoomSelections,
   Trending,
 } from "../components/trip-details";
+import ImageCarousel from "../components/ImageCarousel";
 
 const RatingDescriptions = ["Very Poor", "Poor", "Good", "Very Good", "Perfect"]
 
@@ -62,7 +63,7 @@ const TripDetails = ({trip=fakeTrip}) => {
           <p>Zurich town, Switzerland</p>
         </div>
       </div>
-      <div className="mt-5 flex flex-wrap rounded-xl gap-4 overflow-hidden">
+      {/* <div className="mt-5 flex flex-wrap rounded-xl gap-4 overflow-hidden">
         <div className="group overflow-hidden flex-1 basis-[30rem]">
           <img
             src="/images/place (31).jpg"
@@ -93,7 +94,8 @@ const TripDetails = ({trip=fakeTrip}) => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
+      <ImageCarousel trip={trip} avgRating={avgRating}/>
       <div className="mt-5 flex-align-center gap-2 sm:gap-3 flex-col sm:flex-row">
         <div className="flex-align-center gap-x-2 sm:gap-x-3">
           <span className="text-sm text-green-500 bg-green-500/20 px-2 rounded">
