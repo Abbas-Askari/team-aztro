@@ -18,6 +18,7 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ImageCarousel from "../components/ImageCarousel";
+import { date } from "zod";
 
 const RatingDescriptions = [
   "Very Poor",
@@ -169,7 +170,7 @@ const TripDetails = ({ trip = fakeTrip }) => {
           </div>
         </div>
       </div> */}
-      <ImageCarousel trip={trip} avgRating={avgRating}/>
+      <ImageCarousel images={data?.images ? data.images : []}/>
       <div className="mt-5 flex-align-center gap-2 sm:gap-3 flex-col sm:flex-row">
         <div className="flex-align-center gap-x-2 sm:gap-x-3">
           <span className="text-sm text-green-500 bg-green-500/20 px-2 rounded">
