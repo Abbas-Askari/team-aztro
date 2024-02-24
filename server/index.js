@@ -5,7 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const agentRouter = require("./routes/agentRouter");
+const userRouter = require("./routes/userRouter");
 
 const app = express();
 
@@ -13,12 +13,11 @@ app.use(express.json());
 app.use(cors());
 app.options("*", cors());
 
-app.use("/users", agentRouter);
+app.use("/users", userRouter);
 
+app.listen(3000);
+console.log("connected and listening");
 mongoose
   .connect(process.env.MONGO_DB_URI)
-  .then(() => {
-    app.listen(3000);
-    console.log("connected and listening");
-  })
+  .then(() => {})
   .catch((err) => console.log(err));
