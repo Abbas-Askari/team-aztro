@@ -52,7 +52,7 @@ const router = createBrowserRouter([
   { path: "/hotel/:id/booking-sucess", element: <BookingSuccess /> },
   { path: "/umrah", element: <Umrah /> },
 
-  // { path: "/trip/:id", element: <TripDetails /> },
+  { path: "/trips/:id", element: <TripDetails /> },
   { path: "/hotels/:id", element: <HotelDetails /> },
   { path: "/blog/:id", element: <BlogPost /> },
   { path: "/login", element: <Login /> },

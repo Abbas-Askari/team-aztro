@@ -12,7 +12,7 @@ const Umrah = () => {
       <NavFilters url="/umrah/search" />
       <div className="mt-5 px-[3%] md:px-[6%]">
         <Deals />
-        <Timeline></Timeline>
+        <Timeline/>
         <FAQs />
       </div>
     </div>
