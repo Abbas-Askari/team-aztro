@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const userRouter = require("./routes/userRouter");
+const reviewRouter = require("./routes/reviewRouter")
 // const requireAuth = require("./middleware/requireAuth");
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors());
 app.options("*", cors());
 
 app.use("/users", userRouter);
+app.use("/reviews", reviewRouter)
 
 app.listen(3000);
 console.log("connected and listening");
