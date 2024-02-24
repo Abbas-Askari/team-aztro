@@ -10,6 +10,7 @@ const userRouter = require("./routes/userRouter");
 const tripRouter = require("./routes/tripRouter");
 const reviewRouter = require("./routes/reviewRouter");
 const authRouter = require("./routes/authRouter");
+const imageRouter = require("./routes/imageRouter");
 // const requireAuth = require("./middleware/requireAuth");
 
 const app = express();
@@ -22,10 +23,11 @@ app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/trips", tripRouter);
 app.use("/reviews", reviewRouter);
+app.use("/images", imageRouter);
 app.use(express.static("images"));
 
 app.listen(3000);
-console.log("connected!");
+console.log("listening!");
 mongoose
   .connect(process.env.MONGO_DB_URI)
   .then(() => {

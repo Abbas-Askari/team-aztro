@@ -2,7 +2,7 @@ const Review = require("../models/reviewModel");
 const z = require("zod");
 
 const reviewSchema = z.object({
-  agent: z.string(),
+  trip: z.string(),
   user: z.string(),
   title: z.string(),
   content: z.string(),
@@ -15,7 +15,14 @@ async function getAllReviews(req, res) {
 }
 
 async function createReview(req, res) {
+  req.body.user = req.user._id.toString();
+  req.body.trip = req.params.id;
+
+  console.log("body: ", req.body);
   const data = reviewSchema.safeParse(req.body);
+
+  const { tripId } = req.params;
+
   if (data.success) {
     const validated = data.data;
     const review = new Review(validated);

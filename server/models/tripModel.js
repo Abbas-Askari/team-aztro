@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { string } = require("zod");
 
 const TripSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -7,6 +8,7 @@ const TripSchema = new mongoose.Schema({
   reviews: [{ type: mongoose.Types.ObjectId, ref: "Review" }],
   price: { type: Number, required: true },
   agent: { type: mongoose.Types.ObjectId, ref: "Agent" },
+  images: [{ type: String }],
   destination: {
     type: {
       type: String,

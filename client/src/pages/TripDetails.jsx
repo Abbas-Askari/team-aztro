@@ -15,34 +15,102 @@ import {
   RoomSelections,
   Trending,
 } from "../components/trip-details";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const RatingDescriptions = ["Very Poor", "Poor", "Good", "Very Good", "Perfect"]
+const RatingDescriptions = [
+  "Very Poor",
+  "Poor",
+  "Good",
+  "Very Good",
+  "Perfect",
+];
 
 const fakeTrip = {
   title: "Pir Chinasi",
-  description: "Embark on a hike to Pir Chinasi, Pakistan's prestigious and most beautiful peak.",
+  description:
+    "Embark on a hike to Pir Chinasi, Pakistan's prestigious and most beautiful peak.",
   timeline: [
-    {time: new Date(), name: "Breakfast", description: "Let's start the day with some breakfast"},
-    {time: new Date(), name: "Begin Hike", description: "We begin the hike"},
-    {time: new Date(), name: "Lunch", description: "After conquering the peak, we will have lunch on the famous Monal Restaurant"},
-    {time: new Date(), name: "Climb Down", description: "Return back to the transport facilities"},
-    {time: new Date(), name: "Dinner", description: "Have KFC and Go Back home"},
+    {
+      time: new Date(),
+      name: "Breakfast",
+      description: "Let's start the day with some breakfast",
+    },
+    { time: new Date(), name: "Begin Hike", description: "We begin the hike" },
+    {
+      time: new Date(),
+      name: "Lunch",
+      description:
+        "After conquering the peak, we will have lunch on the famous Monal Restaurant",
+    },
+    {
+      time: new Date(),
+      name: "Climb Down",
+      description: "Return back to the transport facilities",
+    },
+    {
+      time: new Date(),
+      name: "Dinner",
+      description: "Have KFC and Go Back home",
+    },
   ],
   agent: {
-    name: "Zain Travels"
+    name: "Zain Travels",
   },
   price: 50000,
   reviews: [
-    {username: "Taha Shah", title: "So Much Fun", content: "This was my first independent trip after high school. I enjoyed alot with my friends and the accommodations were outstanding. Thank You Zain Travels for such an amazing experience", rating: 3.7},
-    {username: "Taha Shah", title: "So Much Fun", content: "This was my first independent trip after high school. I enjoyed alot with my friends and the accommodations were outstanding. Thank You Zain Travels for such an amazing experience", rating: 3.6},
-    {username: "Taha Shah", title: "So Much Fun", content: "This was my first independent trip after high school. I enjoyed alot with my friends and the accommodations were outstanding. Thank You Zain Travels for such an amazing experience", rating: 3.2},
-    {username: "Taha Shah", title: "So Much Fun", content: "This was my first independent trip after high school. I enjoyed alot with my friends and the accommodations were outstanding. Thank You Zain Travels for such an amazing experience", rating: 4.7},
-  ], 
-}
+    {
+      username: "Taha Shah",
+      title: "So Much Fun",
+      content:
+        "This was my first independent trip after high school. I enjoyed alot with my friends and the accommodations were outstanding. Thank You Zain Travels for such an amazing experience",
+      rating: 3.7,
+    },
+    {
+      username: "Taha Shah",
+      title: "So Much Fun",
+      content:
+        "This was my first independent trip after high school. I enjoyed alot with my friends and the accommodations were outstanding. Thank You Zain Travels for such an amazing experience",
+      rating: 3.6,
+    },
+    {
+      username: "Taha Shah",
+      title: "So Much Fun",
+      content:
+        "This was my first independent trip after high school. I enjoyed alot with my friends and the accommodations were outstanding. Thank You Zain Travels for such an amazing experience",
+      rating: 3.2,
+    },
+    {
+      username: "Taha Shah",
+      title: "So Much Fun",
+      content:
+        "This was my first independent trip after high school. I enjoyed alot with my friends and the accommodations were outstanding. Thank You Zain Travels for such an amazing experience",
+      rating: 4.7,
+    },
+  ],
+};
 
-const TripDetails = ({trip=fakeTrip}) => {
+const TripDetails = ({ trip = fakeTrip }) => {
+  const { id: tripId } = useParams();
+  const [data, setData] = useState(null);
 
-  const avgRating = trip.reviews.length ? trip.reviews.reduce((sum, review) => sum + review.rating, 0)/trip.reviews.length : -1
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(
+        import.meta.env.VITE_BACKEND + "/trips/trip/" + tripId
+      );
+      const newData = await res.json();
+      console.log(newData);
+      setData(newData.trip);
+    })();
+  }, []);
+
+  const avgRating = trip.reviews.length
+    ? trip.reviews.reduce((sum, review) => sum + review.rating, 0) /
+      trip.reviews.length
+    : -1;
+
+  console.log({ data });
 
   return (
     <div className="pt-16 px-[3%] md:px-[6%]">
@@ -53,8 +121,10 @@ const TripDetails = ({trip=fakeTrip}) => {
         <div className="flex-align-center gap-x-2">
           <FaStar className="text-secondaryYellow" />
           <p className="flex gap-1">
-            <span>{ avgRating !== -1 && avgRating }</span>
-            <span className="opacity-70">({trip.reviews.length ? trip.reviews.length : "No"} reviews)</span>
+            <span>{avgRating !== -1 && avgRating}</span>
+            <span className="opacity-70">
+              ({trip.reviews.length ? trip.reviews.length : "No"} reviews)
+            </span>
           </p>
         </div>
         <div className="flex-align-center gap-x-2">
@@ -65,7 +135,11 @@ const TripDetails = ({trip=fakeTrip}) => {
       <div className="mt-5 flex flex-wrap rounded-xl gap-4 overflow-hidden">
         <div className="group overflow-hidden flex-1 basis-[30rem]">
           <img
-            src="/images/place (31).jpg"
+            src={
+              data?.images
+                ? import.meta.env.VITE_BACKEND + "/" + data.images[0]
+                : "/images/place (31).jpg"
+            }
             alt=""
             className="group-hover:scale-125 transition-a "
           />
@@ -108,12 +182,11 @@ const TripDetails = ({trip=fakeTrip}) => {
           <span className="text-sm text-secondaryRed bg-secondaryRed/20 px-2 rounded">
             Travel
           </span>
-
         </div>
         <div className="flex-align-center gap-x-3">
           {Array.apply(null, { length: 5 }).map((_, i) => (
             <div key={i} className="text-secondaryYellow">
-              {i < avgRating ? <FaStar /> : <FaRegStar/>}
+              {i < avgRating ? <FaStar /> : <FaRegStar />}
             </div>
           ))}
         </div>
@@ -121,7 +194,7 @@ const TripDetails = ({trip=fakeTrip}) => {
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold capitalize mt-4">
-            {trip.title}
+            {data?.title || trip.title}
           </h1>
           <p className="mt-2">Zurich, switzerland</p>
           {/* Tab Component */}
@@ -134,7 +207,7 @@ const TripDetails = ({trip=fakeTrip}) => {
                 <Tab>Reviews</Tab>
               </TabList>
               <TabPanel>
-                <Description text={trip.description} />
+                <Description text={data?.description || trip.description} />
               </TabPanel>
               {/* <TabPanel>
                 <Features />
