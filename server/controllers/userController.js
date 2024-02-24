@@ -65,7 +65,7 @@ async function login(req, res) {
     }
 
     return jwt.sign(
-      { id: user._id },
+      { _id: user._id },
       process.env.JWT_SECRET,
       (error, token) => {
         if (error) {
