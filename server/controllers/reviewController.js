@@ -1,5 +1,6 @@
 const Review = require("../models/reviewModel");
 const z = require("zod");
+const Trip = require("../models/tripModel");
 
 const reviewSchema = z.object({
   trip: z.string(),
@@ -26,6 +27,12 @@ async function createReview(req, res) {
     const validated = data.data;
     const review = new Review(validated);
     await review.save();
+    await Trip.updateOne(
+      { _id: req.body.trip },
+      { $push: { reviews: review } },
+      {}
+    ).exec();
+
     res.json({ review });
   } else {
     const result = data.error;
@@ -36,6 +43,19 @@ async function createReview(req, res) {
     res.json({ errors });
   }
   console.log({ data });
+}
+
+async function getReviewsOfTrip(req, res) {
+  const { tripID } = req.params;
+
+  const reviews = await Review.find({ trip: tripID }).populate("user").exec();
+
+  if (!reviews) {
+    return res.json({
+      error: "Trip not found!",
+    });
+  }
+  return res.json({ reviews });
 }
 
 module.exports = { getAllReviews, createReview };

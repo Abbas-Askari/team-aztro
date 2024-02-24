@@ -11,7 +11,7 @@ const AddReview = () => {
 
   function submit() {
     console.log(localStorage.getItem("token"));
-    fetch(import.meta.env.VITE_BACKEND + "/trips/trip/" + tripId + "/reviwes", {
+    fetch(import.meta.env.VITE_BACKEND + "/trips/trip/" + tripId + "/reviews", {
       method: "POST",
       headers: {
         authorization: "Bearer " + localStorage.getItem("token"),
