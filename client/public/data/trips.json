@@ -1,0 +1,86 @@
+[
+    {
+      "id": 1,
+      "title": "Lahore",
+      "description" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque tempora pariatur sequi officiis, tenetur iusto dolorem repudiandae! Sunt, ducimus dolore!",
+      "image": "/images/place (25).jpg",
+      "price": 234.89,
+      "rating": 4.5,
+      "phone": "+256 775 358738"
+    },
+    {
+        "id": 2,
+        "title": "Lahore",
+        "description" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque tempora pariatur sequi officiis, tenetur iusto dolorem repudiandae! Sunt, ducimus dolore!",
+        "image": "/images/place (25).jpg",
+        "price": 234.89,
+        "rating": 4.5,
+        "phone": "+256 775 358738"
+      },
+      {
+        "id": 3,
+        "title": "Lahore",
+        "description" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque tempora pariatur sequi officiis, tenetur iusto dolorem repudiandae! Sunt, ducimus dolore!",
+        "image": "/images/place (25).jpg",
+        "price": 234.89,
+        "rating": 4.5,
+        "phone": "+256 775 358738"
+      },
+      {
+        "id": 4,
+        "title": "Lahore",
+        "description" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque tempora pariatur sequi officiis, tenetur iusto dolorem repudiandae! Sunt, ducimus dolore!",
+        "image": "/images/place (25).jpg",
+        "price": 234.89,
+        "rating": 4.5,
+        "phone": "+256 775 358738"
+      },
+      {
+        "id": 5,
+        "title": "Lahore",
+        "description" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque tempora pariatur sequi officiis, tenetur iusto dolorem repudiandae! Sunt, ducimus dolore!",
+        "image": "/images/place (25).jpg",
+        "price": 234.89,
+        "rating": 4.5,
+        "phone": "+256 775 358738"
+      },
+      {
+        "id": 6,
+        "title": "Lahore",
+        "description" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque tempora pariatur sequi officiis, tenetur iusto dolorem repudiandae! Sunt, ducimus dolore!",
+        "image": "/images/place (25).jpg",
+        "price": 234.89,
+        "rating": 4.5,
+        "phone": "+256 775 358738"
+      },
+      {
+        "id": 7,
+        "title": "Lahore",
+        "description" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque tempora pariatur sequi officiis, tenetur iusto dolorem repudiandae! Sunt, ducimus dolore!",
+        "image": "/images/place (25).jpg",
+        "price": 234.89,
+        "rating": 4.5,
+        "phone": "+256 775 358738"
+      },
+      {
+        "id": 8,
+        "title": "Lahore",
+        "description" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque tempora pariatur sequi officiis, tenetur iusto dolorem repudiandae! Sunt, ducimus dolore!",
+        "image": "/images/place (25).jpg",
+        "price": 234.89,
+        "rating": 4.5,
+        "phone": "+256 775 358738"
+      },
+      {
+        "id": 9,
+                
+        "title": "Lahore",
+        "description" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque tempora pariatur sequi officiis, tenetur iusto dolorem repudiandae! Sunt, ducimus dolore!",
+        "image": "/images/place (25).jpg",
+        "price": 234.89,
+        "rating": 4.5,
+        "phone": "+256 775 358738"
+      }
+
+]
+
