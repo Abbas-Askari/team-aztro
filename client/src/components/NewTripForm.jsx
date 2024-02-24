@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createTripAsync } from "../newTripSlice";
 
 export const NewTripForm = () => {
-  const [tripName, setTripName] = useState("");
-  const [tripDescription, setTripDescription] = useState("");
-  const [tripPrice, setTripPrice] = useState(0);
+  const { errors, loading } = useSelector((state) => state.newTrip);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
 
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
@@ -11,50 +15,97 @@ export const NewTripForm = () => {
   const [tripEvents, setTripEvents] = useState([]);
   const [adding, setAdding] = useState(false);
 
+  const [images, setImages] = useState([]);
+
   const clearEvent = () => {
-    setEventName("");
-    setEventDescription("");
-    setEventTime(null);
+    // setEventName("");
+    // setEventDescription("");
+    // setEventTime(null);
   };
 
+  const dispatch = useDispatch();
+
+  console.log(errors);
+
+  function submit(e) {
+    e.preventDefault();
+
+    dispatch(
+      createTripAsync({
+        title,
+        description,
+        price: +price,
+        timeline: [],
+        reviews: [],
+        agent: "65d9a617923591d668f727f2",
+        images,
+      })
+    );
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
+    <form onSubmit={submit}>
       <div>
-        <label htmlFor="tripname">Trip Name</label>
+        {Array.from(images).map((image) => (
+          <img
+            className="w-96 object-contain bg-red-400"
+            src={URL.createObjectURL(image)}
+          />
+        ))}
+      </div>
+      <div>
+        <label htmlFor="files" className=" btn btn-primary">
+          <span>Add images</span>
+          <input
+            type="file"
+            id="files"
+            multiple
+            className="hidden"
+            onChange={(e) =>
+              setImages((img) => [...Array.from(e.target.files), ...img])
+            }
+          />
+        </label>
+        <label htmlFor="name">Trip Name</label>
         <input
-          value={tripName}
-          onChange={(e) => setTripName(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           type="text"
-          name="tripname"
+          name="name"
           placeholder="Trip Name"
-          id=""
+          id="name"
         />
+      </div>
+      <div className="text-error">
+        {errors.find((err) => err.path === "title")?.message}
       </div>
       <div>
         <label htmlFor="tripdesc">Trip Desc</label>
         <input
-          value={tripDescription}
-          onChange={(e) => setTripDescription(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           type="text"
           name="tripdesc"
           placeholder="Trip Description"
           id=""
         />
       </div>
+      <div className="text-error">
+        {errors.find((err) => err.path === "description")?.message}
+      </div>
       <div>
         <label htmlFor="tripprice">Trip Price</label>
         <input
-          value={tripPrice}
-          onChange={(e) => setTripPrice(e.target.value)}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
           type="number"
           name="tripprice"
           placeholder="Trip Price"
           id=""
         />
+      </div>
+      <div className="text-error">
+        {errors.find((err) => err.path === "price")?.message}
       </div>
 
       {tripEvents.map((event, i) => (
@@ -140,7 +191,13 @@ export const NewTripForm = () => {
           </div>
         </div>
       )}
-      <button className=" btn btn-primary">submit</button>
+      <button
+        disabled={loading}
+        className=" btn btn-primary  disabled:opacity-30 disabled:cursor-not-allowed"
+      >
+        submit
+        {loading && <span className=" animate-spin"></span>}
+      </button>
     </form>
   );
 };
