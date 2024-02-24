@@ -18,9 +18,40 @@ async function signup(req, res) {
   const data = signupSchema.safeParse(req.body);
   if (data.success) {
     const validated = data.data;
+    const existing = await User.findOne({ email: validated.email }).exec();
+    if (existing) {
+      return res.json({
+        errors: [
+          {
+            path: "email",
+            message: "Email is in use.",
+          },
+        ],
+      });
+    }
     const user = new User(validated);
     await user.save();
-    res.json({ user });
+    return jwt.sign(
+      { _id: user._id },
+      process.env.JWT_SECRET,
+      (error, token) => {
+        if (error) {
+          console.log(error);
+          return res.json({
+            errors: [
+              {
+                path: "custom",
+                message: "Cannot login!",
+              },
+            ],
+          });
+        }
+        res.json({
+          token,
+          user,
+        });
+      }
+    );
   } else {
     const result = data.error;
     const errors = result.errors.map((error) => ({
@@ -32,6 +63,7 @@ async function signup(req, res) {
 }
 
 async function login(req, res) {
+  console.log(req.body);
   const parsed = loginSchema.safeParse(req.body);
   if (parsed.success) {
     const data = parsed.data;
@@ -87,5 +119,4 @@ async function login(req, res) {
   }
 }
 
-
-module.exports = { login, signup }
+module.exports = { login, signup };

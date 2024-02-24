@@ -28,6 +28,9 @@ import { Provider } from "react-redux";
 import { store } from "./store.js";
 import TripSearch from "./pages/TripSearch";
 import Navbar from "./components/common/Navbar";
+import SignUp from "./components/Signup.jsx";
+import Login from "./components/Login.jsx";
+import { NewTripForm } from "./components/NewTripForm.jsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +55,18 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   { path: "*", element: <PageNotFound /> },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
+  {
+    path: "/new-trip",
+    element: <NewTripForm />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

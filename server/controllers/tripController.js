@@ -1,5 +1,5 @@
 const Trip = require("../models/tripModel");
-const User = require("../models/userModel");
+const { getValidAgent, getValidTrip } = require("../middleware/validate");
 const z = require("zod");
 
 const tripSchema = z.object({
@@ -11,28 +11,6 @@ const tripSchema = z.object({
   reviews: z.array(z.string()),
   price: z.number(),
   agent: z.string(),
-  // destination: {
-  //   type: {
-  //     type: String,
-  //     enum: ["Point"],
-  //     required: true,
-  //   },
-  //   coordinates: {
-  //     type: [Number],
-  //     required: true,
-  //   },
-  // },
-  // source: {
-  //   type: {
-  //     type: String,
-  //     enum: ["Point"],
-  //     required: true,
-  //   },
-  //   coordinates: {
-  //     type: [Number],
-  //     required: true,
-  //   },
-  // },
 });
 
 async function getAllTrips(req, res) {
@@ -43,6 +21,7 @@ async function getAllTrips(req, res) {
 async function createTrip(req, res) {
   //   const { email, name, password, isAgent } = req.body;
   console.log("body: ", req.body);
+  console.log("files: ", req.files);
   const data = tripSchema.safeParse(req.body);
   if (data.success) {
     const validated = data.data;
@@ -60,4 +39,29 @@ async function createTrip(req, res) {
   }
 }
 
-module.exports = { getAllTrips, createTrip };
+async function getUserTrips(req, res) {
+  const { agentID } = req.params;
+
+  const agent = await getValidAgent(agentID);
+
+  if (!agent) {
+    return res.json({ error: "No Valid Agent Found" });
+  }
+
+  const trips = await Trip.find({ agent: agent._id }).exec();
+  return res.json({ trips });
+}
+
+async function getTrip(req, res) {
+  const { tripID } = req.params;
+
+  const trip = await getValidTrip(tripID);
+
+  if (!trip) {
+    return res.json({ error: "No Valid Trip Found" });
+  }
+
+  return res.json({ trip });
+}
+
+module.exports = { getAllTrips, createTrip, getUserTrips, getTrip };
