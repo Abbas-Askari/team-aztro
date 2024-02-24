@@ -1,4 +1,4 @@
-const Review = require("../model/review");
+const Review = require("../models/reviewModel");
 const z = require("zod");
 
 const reviewSchema = z.object({
