@@ -23,7 +23,7 @@ const Trending = () => {
               </div>
               <div className="p-3">
                 <Link
-                  to="hotels/1"
+                  to="trips/1"
                   className="group-hover:text-primary transition-colors"
                 >
                   <h1 className="text-lg font-semibold capitalize">{name}</h1>

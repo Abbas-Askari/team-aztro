@@ -129,21 +129,21 @@ const TripDetails = ({trip=fakeTrip}) => {
             <TabWrapper>
               <TabList>
                 <Tab>Description</Tab>
-                <Tab>Features</Tab>
-                <Tab>Room & Price</Tab>
-                <Tab>Review</Tab>
+                {/* <Tab>Features</Tab>
+                <Tab>Room & Price</Tab> */}
+                <Tab>Reviews</Tab>
               </TabList>
               <TabPanel>
-                <Description />
+                <Description text={trip.description} />
               </TabPanel>
-              <TabPanel>
+              {/* <TabPanel>
                 <Features />
               </TabPanel>
               <TabPanel>
                 <RoomPrice />
-              </TabPanel>
+              </TabPanel> */}
               <TabPanel>
-                <Reviews />
+                <Reviews reviews={trip.reviews} />
               </TabPanel>
             </TabWrapper>
           </div>
@@ -160,7 +160,7 @@ const TripDetails = ({trip=fakeTrip}) => {
         </div>
       </div>
 
-      <RoomSelections />
+      {/* <RoomSelections /> */}
       <AddReview />
       <Trending />
     </div>
