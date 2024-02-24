@@ -9,8 +9,8 @@ const TripSchema = new mongoose.Schema({
   agent: { type: mongoose.Types.ObjectId, ref: "Agent" },
   destination: {
     type: {
-      type: String, // Don't do `{ location: { type: String } }`
-      enum: ["Point"], // 'location.type' must be 'Point'
+      type: String, 
+      enum: ["Point"],
       required: true,
     },
     coordinates: {
@@ -20,8 +20,8 @@ const TripSchema = new mongoose.Schema({
   },
   source: {
     type: {
-      type: String, // Don't do `{ location: { type: String } }`
-      enum: ["Point"], // 'location.type' must be 'Point'
+      type: String,
+      enum: ["Point"],
       required: true,
     },
     coordinates: {
