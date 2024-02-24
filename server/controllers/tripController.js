@@ -57,7 +57,15 @@ async function getTrip(req, res) {
   const { tripID } = req.params;
 
   // const trip = await getValidTrip(tripID);
-  const trip = await Trip.findById(tripID).populate({ path: "reviews" }).populate({ path:"agent" }).exec();
+  const trip = await Trip.findById(tripID)
+    .populate({ path: "reviews" })
+    .populate({ path: "agent" })
+    .exec();
+
+  for (const review of trip.reviews) {
+    console.log(review);
+    const r = await review.populate("user");
+  }
 
   if (!trip) {
     return res.json({ error: "No Valid Trip Found" });
