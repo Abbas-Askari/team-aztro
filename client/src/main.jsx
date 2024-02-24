@@ -29,7 +29,6 @@ import { store } from "./store.js";
 import TripSearch from "./pages/TripSearch";
 import Navbar from "./components/common/Navbar";
 import SignUp from "./components/Signup.jsx";
-import Login from "./components/Login.jsx";
 import { NewTripForm } from "./components/NewTripForm.jsx";
 
 const router = createBrowserRouter([
