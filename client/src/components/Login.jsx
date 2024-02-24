@@ -1,15 +1,25 @@
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAsync } from "../authSlice";
+import { Navigate } from "react-router-dom";
 
 export default function Login() {
   const { errors } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  const { user } = useSelector((state) => state.auth);
+
+  console.log(errors);
   const {
     register,
     handleSubmit,
   } = useForm();
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
+
+  console.log(errors);
 
   const submit = async (data) => {
     dispatch(loginAsync({...data, isAgent: data.isAgent === "true"}));
