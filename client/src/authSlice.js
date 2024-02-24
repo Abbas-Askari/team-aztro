@@ -58,7 +58,7 @@ export const signupAsync = createAsyncThunk(
       if (parsed.success) {
         const validated = parsed.data;
         console.log(validated);
-        const res = await fetch(import.meta.env.VITE_BACKEND + "/auth/login", {
+        const res = await fetch(import.meta.env.VITE_BACKEND + "/auth/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
