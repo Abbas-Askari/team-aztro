@@ -11,25 +11,81 @@ const userSchema = z.object({
 export const loginAsync = createAsyncThunk(
   "auth/login",
   async (data, { dispatch, getState }) => {
-    const parsed = userSchema.safeParse(data);
-    if (parsed.success) {
-      const validated = parsed.data;
-      const res = await fetch(import.meta.env.VITE_BACKEND, {
-        body: JSON.stringify(validated),
-      });
-      const data = await res.json();
-      if (data.errors) {
-        return dispatch(setErros(data.errors));
+    try {
+      console.log({ data });
+      const parsed = userSchema.safeParse(data);
+      if (parsed.success) {
+        const validated = parsed.data;
+        console.log(validated);
+        const res = await fetch(import.meta.env.VITE_BACKEND + "/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(validated),
+        });
+        const data = await res.json();
+        console.log(data);
+        if (data.errors) {
+          console.log(data.errors);
+          return dispatch(setErrors(data.errors));
+        }
+        console.log("done!");
+        dispatch(setErrors([]));
+        dispatch(setUser(data.user));
+        dispatch(setToken(data.token));
+      } else {
+        const result = parsed.error;
+        const errors = result.errors.map((error) => ({
+          message: error.message,
+          path: error.path[0],
+        }));
+        console.log({ errors });
+        dispatch(setErrors(errors));
       }
-      dispatch(setUser(data.user));
-      dispatch(setToken(data.token));
-    } else {
-      const result = data.error;
-      const errors = result.errors.map((error) => ({
-        message: error.message,
-        path: error.path[0],
-      }));
-      dispatch(setErrors(errors));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+export const signupAsync = createAsyncThunk(
+  "auth/signup",
+  async (data, { dispatch, getState }) => {
+    try {
+      console.log({ data });
+      const parsed = userSchema.safeParse(data);
+      if (parsed.success) {
+        const validated = parsed.data;
+        console.log(validated);
+        const res = await fetch(import.meta.env.VITE_BACKEND + "/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(validated),
+        });
+        const data = await res.json();
+        console.log(data);
+        if (data.errors) {
+          console.log(data.errors);
+          return dispatch(setErrors(data.errors));
+        }
+        console.log("done!");
+        dispatch(setErrors([]));
+        dispatch(setUser(data.user));
+        dispatch(setToken(data.token));
+      } else {
+        const result = parsed.error;
+        const errors = result.errors.map((error) => ({
+          message: error.message,
+          path: error.path[0],
+        }));
+        console.log({ errors });
+        dispatch(setErrors(errors));
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 );
@@ -42,8 +98,8 @@ export const authSlice = createSlice({
     errors: [],
   },
   reducers: {
-    setErrors: (state, errors) => {
-      state.errors = errors;
+    setErrors: (state, action) => {
+      state.errors = action.payload;
     },
     setUser: (state, user) => {
       state.user = user;
@@ -52,11 +108,11 @@ export const authSlice = createSlice({
     setToken: (state, token) => {
       localStorage.setItem("token", JSON.stringify(token));
     },
-  },
-  logout: (state, action) => {
-    state.user = null;
-    state.token = null;
-    localStorage.clear();
+    logout: (state, action) => {
+      state.user = null;
+      state.token = null;
+      localStorage.clear();
+    },
   },
 });
 
