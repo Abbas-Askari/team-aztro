@@ -8,8 +8,8 @@ require("dotenv").config();
 
 const userRouter = require("./routes/userRouter");
 const tripRouter = require("./routes/tripRouter");
-const reviewRouter = require("./routes/reviewRouter")
-const authRouter = require("./routes/authRouter")
+const reviewRouter = require("./routes/reviewRouter");
+const authRouter = require("./routes/authRouter");
 // const requireAuth = require("./middleware/requireAuth");
 
 const app = express();
@@ -21,7 +21,8 @@ app.options("*", cors());
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/trips", tripRouter);
-app.use("/reviews", reviewRouter)
+app.use("/reviews", reviewRouter);
+app.use(express.static("images"));
 
 app.listen(3000);
 console.log("connected!");

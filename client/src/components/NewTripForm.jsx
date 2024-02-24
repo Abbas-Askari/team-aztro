@@ -10,8 +10,6 @@ export const NewTripForm = () => {
   const [eventDescription, setEventDescription] = useState("");
   const [eventTime, setEventTime] = useState();
   const [eventAmenities, setEventAmenities] = useState([]);
-  const [tripEvents, setTripEvents] = useState([]);
-  const [adding, setAdding] = useState(false);
 
   const amenities = [
     'Free wifi 24/7',
@@ -20,6 +18,8 @@ export const NewTripForm = () => {
     'Free clean bathroom',
     'Breakfast included'
   ];
+  const [tripEvents, setTripEvents] = useState([]);
+  const [adding, setAdding] = useState(false);
 
   const clearEvent = () => {
     setEventName("");
@@ -95,8 +95,10 @@ export const NewTripForm = () => {
           <button type="button" onClick={() => {setTripEvents(te => [...te, {name: eventName, description: eventDescription, time: eventTime, amenities: eventAmenities}]); clearEvent(); setAdding(false)}} className="mr-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add</button>
           <button type="button" onClick={() => setAdding(false)} className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Close</button>
         </div>
-      </div>
+        </div>
       }
+      <button className=" btn btn-primary">submit</button>
     </form>
-  )
+  );
 }
+
