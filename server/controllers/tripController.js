@@ -1,13 +1,20 @@
 const Trip = require("../models/tripModel");
 const { getValidAgent, getValidTrip } = require("../middleware/validate");
 const z = require("zod");
+const Event = require("../models/eventModel");
 
 const tripSchema = z.object({
   title: z.string().min(3, "title must be atleast 3 characters long"),
   description: z
     .string()
     .min(3, "description must be atleast 3 characters long"),
-  timeline: z.array(z.string()),
+  timeline: z.array(
+    z.object({
+      name: z.string().min(3),
+      time: z.string(),
+      description: z.string().min(10),
+    })
+  ),
   reviews: z.array(z.string()),
   price: z.number(),
   agent: z.string(),
@@ -15,8 +22,18 @@ const tripSchema = z.object({
 });
 
 async function getAllTrips(req, res) {
-  const trips = await Trip.find().exec();
-  res.json({ trips });
+  const trips = await Trip.find().populate({ path: "reviews" }).exec();
+  console.log(
+    trips.map((t) => t.reviews.reduce((acc, { rating }) => acc + rating, 0))
+  );
+  res.json({
+    trips: trips.map((trip) => ({
+      ...trip.toJSON(),
+      rating:
+        trip.reviews.reduce((acc, { rating: v }) => acc + v, 0) /
+        trip.reviews.length,
+    })),
+  });
 }
 
 async function createTrip(req, res) {
@@ -27,6 +44,14 @@ async function createTrip(req, res) {
   if (data.success) {
     const validated = data.data;
     console.log({ validated });
+    if (validated.timeline.length > 0) {
+      // for (let i in validated.timeline) {
+      //   i = +i;
+      //   validated.timeline[i] = new Event({validated.timeline[i]});
+      //   await validated.sa
+      // }
+      validated.timeline = await Event.insertMany(validated.timeline);
+    }
     const trip = new Trip(validated);
     await trip.save();
     res.json({ trip });
@@ -57,7 +82,16 @@ async function getTrip(req, res) {
   const { tripID } = req.params;
 
   // const trip = await getValidTrip(tripID);
-  const trip = await Trip.findById(tripID).populate({ path: "reviews" }).populate({ path:"agent" }).exec();
+  const trip = await Trip.findById(tripID)
+    .populate({ path: "reviews" })
+    .populate({ path: "timeline" })
+    .populate({ path: "agent" })
+    .exec();
+
+  for (const review of trip.reviews) {
+    console.log(review);
+    const r = await review.populate("user");
+  }
 
   if (!trip) {
     return res.json({ error: "No Valid Trip Found" });

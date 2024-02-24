@@ -1,9 +1,9 @@
-import React from "react";
-import Banner from "../components/common/Banner";
-import NavFilters from "../components/common/NavFilters";
-import FlightBanner from "../assets/7.jpg";
-import { BestWay, Deals, FAQs } from "../components/flights";
-import Timeline from '../components/timeline/Timeline'
+// import React from "react";
+// import Banner from "../components/common/Banner";
+// import NavFilters from "../components/common/NavFilters";
+// import FlightBanner from "../assets/7.jpg";
+// import { BestWay, Deals, FAQs } from "../components/flights";
+// import Timeline from "../components/timeline/Timeline";
 
 const Umrah = () => {
   return (

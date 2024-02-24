@@ -41,24 +41,7 @@ const Login = () => {
             Sign up
           </Link>
         </div>
-        <div className="mt-4 flex-align-center flex-col sm:flex-row gap-6">
-          <a
-            href="www.google.com"
-            className="btn w-full sm:w-fit border dark:border-dark flex-align-center rounded-md gap-x-2 !opacity-100"
-          >
-            <img src="/images/google.png" alt="" width={15} />
-            <p>Sign in with Google</p>
-          </a>
-          <a
-            href="www.facebook.com"
-            className="btn w-full sm:w-fit bg-[#4370d1] flex-align-center gap-x-2 rounded-md text-white !opacity-100"
-          >
-            <FaFacebook />
-            <p>Sign in with Facebook</p>
-          </a>
-        </div>
         <div className="mt-4">
-          <p className="divider text-center">Or</p>
           <div className="mt-4 bg-white border rounded-lg p-4 dark:bg-card-dark dark:border-dark">
             <label htmlFor="email" className="text-muted">
               Email
