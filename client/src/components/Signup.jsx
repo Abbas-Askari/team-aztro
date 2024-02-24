@@ -22,9 +22,6 @@ export default function Signup() {
   };
 
   return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-    >
       <form
         method="POST"
         onSubmit={handleSubmit(submit)}
@@ -99,6 +96,5 @@ export default function Signup() {
           SignUp
         </button>
       </form>
-    </div>
   );
 }

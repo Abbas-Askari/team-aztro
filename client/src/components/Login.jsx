@@ -26,10 +26,6 @@ export default function Login() {
   };
 
   return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-      className=""
-    >
       <form
         method="POST"
         onSubmit={handleSubmit(submit)}
@@ -76,6 +72,5 @@ export default function Login() {
           Login
         </button>
       </form>
-    </div>
   );
 }
