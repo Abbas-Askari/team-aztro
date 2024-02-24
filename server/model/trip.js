@@ -5,28 +5,28 @@ const TripSchema = new mongoose.Schema({
   description: { type: String, required: true },
   timeline: [{ type: mongoose.Types.ObjectId, ref: "Event" }],
   reviews: [{ type: mongoose.Types.ObjectId, ref: "Review" }],
-  price: { type: number, required: true },
+  price: { type: Number, required: true },
   agent: { type: mongoose.Types.ObjectId, ref: "Agent" },
   destination: {
     type: {
-      type: String, 
+      type: String,
       enum: ["Point"],
-      required: true,
+      //   required: true,
     },
     coordinates: {
       type: [Number],
-      required: true,
+      //   required: true,
     },
   },
   source: {
     type: {
       type: String,
       enum: ["Point"],
-      required: true,
+      //   required: true,
     },
     coordinates: {
       type: [Number],
-      required: true,
+      //   required: true,
     },
   },
 });

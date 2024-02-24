@@ -30,7 +30,6 @@ async function createUser(req, res) {
     }));
     res.json({ errors });
   }
-  console.log({ data });
 }
 
 module.exports = { getAllUsers, createUser };
