@@ -4,7 +4,8 @@ import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 const Reviews = ({reviews}) => {
   const [showAll, setShowAll] = useState(false)
   return (
-    <div>
+    <>
+    {reviews.length !== 0 && <div>
       {reviews.map((review, i) => ( (showAll || i < 4) && 
         <div className="bg-white rounded-lg border p-4 mt-3 dark:bg-card-dark dark:border-dark">
           <div className="flex-align-center gap-x-2">
@@ -34,7 +35,9 @@ const Reviews = ({reviews}) => {
       <div className="flex-center-center mt-4">
         <button className="btn btn-primary" onClick={() => setShowAll(!showAll)}>view {showAll ? "less" : "more"}</button>
       </div>
-    </div>
+    </div>}
+    {reviews.length === 0 && <p>No Reviews Posted Yet</p>}
+    </>
   );
 };
 
