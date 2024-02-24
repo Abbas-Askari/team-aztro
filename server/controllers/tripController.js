@@ -1,5 +1,5 @@
-const Trip = require("../model/trip");
-const User = require("../model/user");
+const Trip = require("../models/tripModel");
+const User = require("../models/userModel");
 const z = require("zod");
 
 const tripSchema = z.object({

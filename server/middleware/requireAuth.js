@@ -1,6 +1,6 @@
 // -> THIS MIDDLEWARE CHECKS IF THE REQUEST SENT CARRIES A VALID TOKEN
 
-const User = require('../model/user')
+const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 
 const requireAuth = async (req, res, next) => {
