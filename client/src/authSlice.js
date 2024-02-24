@@ -108,8 +108,8 @@ export const authSlice = createSlice({
     setErrors: (state, action) => {
       state.errors = action.payload;
     },
-    setUser: (state, user) => {
-      state.user = user;
+    setUser: (state, action) => {
+      state.user = action.payload;
       localStorage.setItem("user", JSON.stringify(user));
     },
     setToken: (state, token) => {
