@@ -43,6 +43,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/hotels", element: <Home /> },
       { path: "/trips/search", element: <TripSearch /> },
+      { path: "/trips/", element: <TripSearch /> },
       { path: "/hotels/search", element: <HotelSearch /> },
       { path: "/profile", element: <Profile /> },
       { path: "/wallet", element: <Wallet /> },

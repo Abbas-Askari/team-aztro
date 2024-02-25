@@ -15,7 +15,7 @@ const SingleHotel = ({
   return (
     <div className="bg-white group border dark:border-dark rounded-lg dark:bg-card-dark flex-1 basis-[18rem]">
       <div className="relative overflow-hidden rounded-lg sm:cursor-pointer">
-        <Link to={`/trip/${id || _id}`} className="!opacity-100">
+        <Link to={`/trips/${id || _id}`} className="!opacity-100">
           <img
             src={image || import.meta.env.VITE_BACKEND + "/" + images[0]}
             alt={title}
