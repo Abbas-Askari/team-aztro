@@ -50,7 +50,7 @@ const Navbar = () => {
 
   return (
     <div
-      className="sticky z-40 w-full px-3 py-2 bg-white/60 navbar lg:px-6 dark:bg-card-dark/60 backdrop-blur-sm"
+      className="sticky top-0 z-40 w-full px-3 py-2 bg-white/60 navbar lg:px-6 dark:bg-card-dark/60 backdrop-blur-sm"
       onClick={handleClose}
     >
       <div className="flex-center-between">
