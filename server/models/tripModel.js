@@ -7,7 +7,7 @@ const TripSchema = new mongoose.Schema({
   timeline: [{ type: mongoose.Types.ObjectId, ref: "Event" }],
   reviews: [{ type: mongoose.Types.ObjectId, ref: "Review" }],
   price: { type: Number, required: true },
-  agent: { type: mongoose.Types.ObjectId, ref: "Agent" },
+  agent: { type: mongoose.Types.ObjectId, ref: "User" },
   images: [{ type: String }],
   destination: {
     type: {

@@ -92,7 +92,7 @@ const fakeTrip = {
   ],
 };
 
-const TripDetails = ({ trip = fakeTrip }) => {
+const TripDetails = () => {
   const { id: tripId } = useParams();
   const [data, setData] = useState(null);
 
@@ -107,17 +107,15 @@ const TripDetails = ({ trip = fakeTrip }) => {
     })();
   }, []);
 
-  const avgRating = trip.reviews.length
-    ? trip.reviews.reduce((sum, review) => sum + review.rating, 0) /
-      trip.reviews.length
-    : -1;
-
-  console.log({ data });
+  const avgRating = data?.reviews.length
+    ? data?.reviews.reduce((sum, review) => sum + review.rating, 0) /
+      data?.reviews.length
+    : "No Reviews";
 
   return (
     <div className="pt-16 px-[3%] md:px-[6%]">
       <h1 className="text-3xl md:text-4xl font-bold capitalize">
-        {trip.agent.name}
+        {data?.agent.name}
       </h1>
       <div className="mt-4 flex-align-center gap-x-3">
         <div className="flex-align-center gap-x-2">
@@ -125,7 +123,7 @@ const TripDetails = ({ trip = fakeTrip }) => {
           <p className="flex gap-1">
             <span>{avgRating !== -1 && avgRating}</span>
             <span className="opacity-70">
-              ({trip.reviews.length ? trip.reviews.length : "No"} reviews)
+              ({data?.reviews.length ? data?.reviews.length : "No"} reviews)
             </span>
           </p>
         </div>
@@ -134,42 +132,6 @@ const TripDetails = ({ trip = fakeTrip }) => {
           <p>Zurich town, Switzerland</p>
         </div>
       </div>
-      {/* <div className="mt-5 flex flex-wrap rounded-xl gap-4 overflow-hidden">
-        <div className="group overflow-hidden flex-1 basis-[30rem]">
-          <img
-            src={
-              data?.images
-                ? import.meta.env.VITE_BACKEND + "/" + data.images[0]
-                : "/images/place (31).jpg"
-            }
-            alt=""
-            className="group-hover:scale-125 transition-a "
-          />
-        </div>
-        <div className="flex-1 basis-[16rem]">
-          <div className="group overflow-hidden h-[150px]">
-            <img
-              src="/images/place (32).jpg"
-              alt=""
-              className="group-hover:scale-125 transition-a"
-            />
-          </div>
-          <div className="mt-3 group overflow-hidden h-[150px]">
-            <img
-              src="/images/place (33).jpg"
-              alt=""
-              className="group-hover:scale-125 transition-a"
-            />
-          </div>
-          <div className="mt-3 group overflow-hidden h-[150px]">
-            <img
-              src="/images/place (34).jpg"
-              alt=""
-              className="group-hover:scale-125 transition-a"
-            />
-          </div>
-        </div>
-      </div> */}
       <ImageCarousel images={data?.images ? data.images : []}/>
       <div className="mt-5 flex-align-center gap-2 sm:gap-3 flex-col sm:flex-row">
         <div className="flex-align-center gap-x-2 sm:gap-x-3">
@@ -197,7 +159,7 @@ const TripDetails = ({ trip = fakeTrip }) => {
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold capitalize mt-4">
-            {data?.title || trip.title}
+            {data?.title}
           </h1>
           <p className="mt-2">Zurich, switzerland</p>
           {/* Tab Component */}
@@ -210,7 +172,7 @@ const TripDetails = ({ trip = fakeTrip }) => {
                 <Tab>Reviews</Tab>
               </TabList>
               <TabPanel>
-                <Description text={data?.description || trip.description} />
+                <Description text={data?.description} />
               </TabPanel>
               {/* <TabPanel>
                 <Features />
@@ -219,7 +181,7 @@ const TripDetails = ({ trip = fakeTrip }) => {
                 <RoomPrice />
               </TabPanel> */}
               <TabPanel>
-                <Reviews reviews={trip.reviews} />
+                <Reviews reviews={data?.reviews || []} />
               </TabPanel>
             </TabWrapper>
           </div>
