@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-routing-machine';
 
-const MapComponent = () => {
+const MapComponent = ({setCoordinates}) => {
   useEffect(() => {
     const map = L.map('map').setView([31.5204, 74.3587 ], 11);
     const mapLink = "<a href='http://openstreetmap.org'>OpenStreetMap</a>";
@@ -21,7 +21,6 @@ const MapComponent = () => {
     const marker = L.marker([31.5204, 74.3587], { icon: taxiIcon }).addTo(map);
 
     map.on('click', function (e) {
-      console.log(e);
       const newMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
       L.Routing.control({
         waypoints: [
@@ -31,7 +30,7 @@ const MapComponent = () => {
         ]
       }).on('routesfound', function (e) {
         const routes = e.routes;
-        console.log(routes);
+        setCoordinates(routes[0].coordinates[0], routes[0].coordinates.slice(-1)[0])
 
         e.routes[0].coordinates.forEach(function (coord, index) {
           setTimeout(function () {
