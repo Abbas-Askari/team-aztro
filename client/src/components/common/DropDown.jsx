@@ -7,14 +7,16 @@ import {
   BiUser,
   BiUserCircle,
 } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { uiStore } from "../../features/uiSlice";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FiFileText } from "react-icons/fi";
+import { logout } from "../../authSlice";
 
 const Dropdown = () => {
   const { isDropdownOpen } = useSelector(uiStore);
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -71,7 +73,7 @@ const Dropdown = () => {
             className="p-2 space-x-3 rounded-lg flex-align-center sm:cursor-pointer hover:bg-slate-100 dark:hover:bg-hover-color-dark"
           >
             <BiLogOut className="text-muted" />
-            <span className="text-muted">Sign out</span>
+            <span onClick={() => dispatch(logout())} className="text-muted">Sign out</span>
           </Link>
         </motion.div>
       )}

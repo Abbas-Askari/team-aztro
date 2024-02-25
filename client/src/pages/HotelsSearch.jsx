@@ -67,7 +67,7 @@ const HotelSearch = () => {
                   </div>
                 ))}
 
-                <Filters filters={filters?.slice(0, 4)} isHotelFilters />
+                  <Filters filters={filters?.slice(0, 4)} isHotelFilters />
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@ const HotelSearch = () => {
                 </div>
               </div>
             </div>
-            <HotelsList />
+            <HotelsList selectedFilters={selectedFilters} />
             <Pagination itemsPerPage={9} url="/data/hotels.json" />
           </div>
         </div>

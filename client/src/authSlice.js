@@ -96,6 +96,30 @@ export const signupAsync = createAsyncThunk(
   }
 );
 
+export const editUserAsync = createAsyncThunk(
+  "auth/update",
+  async (data, { dispatch, getState }) => {
+
+    const { user } = data 
+    try {
+      const res = await fetch(import.meta.env.VITE_BACKEND + "/auth/edit", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({user})
+      })
+
+      const result = await res.json()
+
+      dispatch(setUser(result))
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -123,6 +147,6 @@ export const authSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setErrors, setUser, setToken } = authSlice.actions;
+export const { setErrors, setUser, setToken, logout } = authSlice.actions;
 
 export default authSlice.reducer;

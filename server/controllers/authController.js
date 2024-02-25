@@ -119,4 +119,12 @@ async function login(req, res) {
   }
 }
 
-module.exports = { login, signup };
+async function editUser(req, res) {
+  const { user } = req.body
+
+  const newUser = await User.findByIdAndUpdate(user._id, user, {new: true}).exec()
+
+  res.json(newUser)
+}
+
+module.exports = { login, signup, editUser };

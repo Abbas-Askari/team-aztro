@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createTripAsync } from "../newTripSlice";
+import HomeBanner from "../banners/banner.jpg";
+import Banner from "../components/common/Banner";
+import "./NewTripForm.css";
+import MapComponent from "./map/MapComponent";
+import { ImageSlider } from "./ImageSlider";
+import Carousel from 'react-elastic-carousel'
 
 export const NewTripForm = () => {
   const { errors, loading } = useSelector((state) => state.newTrip);
@@ -61,236 +67,155 @@ export const NewTripForm = () => {
     );
   }
 
+  const breakPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 2 },
+    { width: 768, itemsToShow: 3 },
+    { width: 1200, itemsToShow: 4 },
+  ];
+
   return (
-    <form
-      onSubmit={submit}
-      className=" max-w-md mx-auto p-4 bg-white shadow-md rounded-md"
-    >
+    <div className="flex items-center">
+      <div className="z-0 flex-1">
+        <MapComponent></MapComponent>
+
+      </div>
+      <div className="flex-1">
+        <form
+          onSubmit={submit}
+          className="max-w-lg mx-auto p-4 bg-white shadow-md rounded-md"
+        >
+          {/* <div>
+            
+          </div> */}
+
       <div>
+        <Carousel breakPoints={breakPoints}>
         {Array.from(images).map((image) => (
-          <img
-            className="w-96 object-contain bg-red-400"
-            src={URL.createObjectURL(image)}
-          />
-        ))}
+              <img
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '250px',
+                width: '100%',
+                backgroundColor: '#fff',
+                color: '#fff',
+                margin: '0 15px',
+                fontSize: '4em'
+              }}
+              className="w-96 object-contain bg-red-400"
+              src={URL.createObjectURL(image)}
+            />
+            
+            ))}
+        </Carousel>
       </div>
 
-      <div>
-        <label htmlFor="files" className=" btn btn-primary">
-          <span>Add images</span>
-          <input
-            type="file"
-            id="files"
-            multiple
-            className="hidden"
-            onChange={(e) =>
-              setImages((img) => [...Array.from(e.target.files), ...img])
-            }
-          />
-        </label>
-        <label htmlFor="name">Trip Name</label>
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          type="text"
-          name="name"
-          placeholder="Trip Name"
-          id="name"
-        />
-      </div>
+          <div className="mb-4">
+            <label
+              htmlFor="tripname"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Trip Name
+            </label>
 
-      {/* <div className="text-error text-xs">
-        {errors.find((err) => err.path === "title")?.message}
-      </div>
-      <div>
-        <label htmlFor="tripdesc">Trip Desc</label>
-        <input
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          type="text"
-          name="tripdesc"
-          placeholder="Trip Description"
-          id=""
-        />
-      </div>
-      <div className="text-error text-xs">
-        {errors.find((err) => err.path === "description")?.message}
-      </div>
-      <div>
-        <label htmlFor="tripprice">Trip Price</label>
-        <input
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          type="number"
-          name="tripprice"
-          placeholder="Trip Price"
-          id=""
-        /> */}
-
-      <div className="mb-4">
-        <label
-          htmlFor="tripname"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Trip Name
-        </label>
-
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          type="text"
-          name="tripname"
-          placeholder="Trip Name"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
-        <div className="text-error text-xs">
-          {errors.find((err) => err.path === "title")?.message}
-        </div>
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="tripdesc"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Trip Description
-        </label>
-        <input
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          type="text"
-          name="tripdesc"
-          placeholder="Trip Description"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
-        <div className="text-error text-xs">
-          {errors.find((err) => err.path === "description")?.message}
-        </div>
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="tripprice"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Trip Price
-        </label>
-        <input
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          type="number"
-          name="tripprice"
-          placeholder="Trip Price"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
-        <div className="text-error text-xs">
-          {errors.find((err) => err.path === "price")?.message}
-        </div>
-      </div>
-
-      {tripEvents.map((event, i) => (
-        <div key={i} className="mb-4">
-          <p>Time: {event.time.toString()}</p>
-          <p>Name: {event.name}</p>
-          <p>Desc: {event.description}</p>
-          <p>Amenities: {event.amenities.join(", ")}</p>
-          <button
-            type="button"
-            onClick={() =>
-              setTripEvents((te) => te.slice(0, i).concat(te.slice(i + 1)))
-            }
-            className="mt-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-          >
-            Delete
-          </button>
-        </div>
-      ))}
-
-      {!adding && (
-        <button
-          type="button"
-          onClick={() => setAdding(true)}
-          className="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Add Event
-        </button>
-      )}
-
-      {events.length > 0 &&
-        events.map((event, i) => (
-          <>
-            <div className="mb-4">
-              <label
-                htmlFor="eventname"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Event Name
-              </label>
-              <input
-                value={event.eventName}
-                onChange={(e) =>
-                  setEvents(
-                    events.map((event, ind) =>
-                      ind !== i
-                        ? event
-                        : { ...event, eventName: e.target.value }
-                    )
-                  )
-                }
-                type="text"
-                name="eventname"
-                placeholder="Event Name"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              type="text"
+              name="tripname"
+              placeholder="Trip Name"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            <div className="text-error text-xs">
+              {errors.find((err) => err.path === "title")?.message}
             </div>
-            <div className="mb-4">
-              <label
-                htmlFor="eventdesc"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Event Description
-              </label>
-              <input
-                value={event.eventDescription}
-                onChange={(e) =>
-                  setEvents(
-                    events.map((event, ind) =>
-                      ind !== i
-                        ? event
-                        : { ...event, eventDescription: e.target.value }
-                    )
-                  )
-                }
-                type="text"
-                name="eventdesc"
-                placeholder="Event Description"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="tripdesc"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Trip Description
+            </label>
+            <input
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              type="text"
+              name="tripdesc"
+              placeholder="Trip Description"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            <div className="text-error text-xs">
+              {errors.find((err) => err.path === "description")?.message}
             </div>
-            <div className="mb-4">
-              <label
-                htmlFor="eventstart"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Event Timing
-              </label>
-              <input
-                value={eventTime}
-                onChange={(e) =>
-                  setEvents(
-                    events.map((event, ind) =>
-                      ind !== i
-                        ? event
-                        : { ...event, eventTime: e.target.value }
-                    )
-                  )
-                }
-                type="datetime-local"
-                name="eventstart"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="tripprice"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Trip Price
+            </label>
+            <input
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              type="number"
+              name="tripprice"
+              placeholder="Trip Price"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            <div className="text-error text-xs">
+              {errors.find((err) => err.path === "price")?.message}
             </div>
-          </>
-        ))}
-      {/* {adding && (
+            <div className="mt-2">
+
+            <label htmlFor="files" className=" btn btn-primary">
+              <span className="">Add images</span>
+              <input
+                type="file"
+                id="files"
+                multiple
+                className="hidden"
+                onChange={(e) =>
+                  setImages((img) => [...Array.from(e.target.files), ...img])
+                }
+              />
+            </label>
+            </div>
+          </div>
+
+          {tripEvents.map((event, i) => (
+            <div key={i} className="mb-4">
+              <p>Time: {event.time.toString()}</p>
+              <p>Name: {event.name}</p>
+              <p>Desc: {event.description}</p>
+              <p>Amenities: {event.amenities.join(", ")}</p>
+              <button
+                type="button"
+                onClick={() =>
+                  setTripEvents((te) => te.slice(0, i).concat(te.slice(i + 1)))
+                }
+                className="mt-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+
+          {!adding && (
+            <button
+              type="button"
+              onClick={() => setAdding(true)}
+              className="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Add Event
+            </button>
+          )}
+
+      {adding && (
         <div className="mt-4">
           <div className="mb-4">
             <label
@@ -349,27 +274,38 @@ export const NewTripForm = () => {
             </div>
           </div>
         </div>
-      )} */}
+      )}
+      <div className="mb-4">
+        <label
+          htmlFor="eventstart"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Event Timing
+        </label>
+        <input
+          value={eventTime}
+          onChange={(e) => setEventTime(e.target.value)}
+          type="datetime-local"
+          name="eventstart"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
+      </div>
 
-      <div>
+      {/* <div>
         <button
           type="button"
           onClick={() => {
-            setEvents((e) => [
-              ...e,
-              { eventName: "", eventDescription: "", eventTime: new Date() },
+            setTripEvents((te) => [
+              ...te,
+              {
+                name: eventName,
+                description: eventDescription,
+                time: eventTime,
+                amenities: eventAmenities,
+              },
             ]);
-            // setTripEvents((te) => [
-            //   ...te,
-            //   {
-            //     name: eventName,
-            //     description: eventDescription,
-            //     time: eventTime,
-            //     amenities: eventAmenities,
-            //   },
-            // ]);
-            // clearEvent();
-            // setAdding(false);
+            clearEvent();
+            setAdding(false);
           }}
           className="mr-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
@@ -381,16 +317,19 @@ export const NewTripForm = () => {
           className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Close
-        </button>
-      </div>
+        </button> */}
+      {/* </div> */}
 
-      <button
-        disabled={loading}
-        className=" btn btn-primary  disabled:opacity-30 disabled:cursor-not-allowed"
-      >
-        submit
-        {loading && <span className=" animate-spin"></span>}
-      </button>
-    </form>
+          <button
+            disabled={loading}
+            className=" btn btn-primary  disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            submit
+            {loading && <span className=" animate-spin"></span>}
+          </button>
+        </form>
+       
+      </div>
+    </div>
   );
 };
