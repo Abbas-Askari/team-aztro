@@ -1,7 +1,7 @@
 import React from "react";
 import Banner from "../components/common/Banner";
 import NavFilters from "../components/common/NavFilters";
-import flightBanner from "../assets/7.png";
+import flightBanner from "../assets/7.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { closeFilterMenu, openFilterMenu, uiStore } from "../features/uiSlice";
 import { FiChevronDown, FiDelete } from "react-icons/fi";
@@ -10,6 +10,7 @@ import Filters from "../components/common/Filters";
 import { filters } from "../data/flightFilters";
 import FlightsList from "../components/flights/FlightsList";
 import Pagination from "../components/common/Pagination";
+import TripsList from '../components/trips/TripsList'
 
 const UmrahSearch = () => {
   const { isFilterMenuOpen } = useSelector(uiStore);
@@ -20,7 +21,7 @@ const UmrahSearch = () => {
   };
   return (
     <div>
-      <Banner banner={flightBanner} title="Your best and comfortable flight" />
+      <Banner banner={flightBanner} title="Your best and comfortable Trip" />
       <NavFilters />
       <div className="pt-10 px-[3%] md:px-[6%]">
         <div className="grid md:grid-cols-4 gap-x-14">
@@ -39,7 +40,7 @@ const UmrahSearch = () => {
                     <FiDelete />
                   </div>
                 </div>
-                <Filters filters={filters} />
+                {/* <Filters filters={filters} /> */}
               </div>
             </div>
           </div>
@@ -65,7 +66,7 @@ const UmrahSearch = () => {
                 </div>
               </div>
             </div>
-            <FlightsList />
+            <TripsList />
             <Pagination itemsPerPage={5} url="/data/flights.json" />
           </div>
         </div>

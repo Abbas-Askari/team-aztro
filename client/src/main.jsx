@@ -13,8 +13,10 @@ import {
   Register,
   Rewards,
   Wallet,
+  
 } from "./pages";
 import HotelSearch from "./pages/HotelsSearch";
+import UmrahSearch from "./pages/UmrahSearch";
 
 
 
@@ -52,7 +54,7 @@ const router = createBrowserRouter([
       { path: "/hotels/:id/confirm-booking", element: <ConfirmBooking /> },
       { path: "/hotels/:id/booking-sucess", element: <BookingSuccess /> },
       { path: "/umrah", element: <Umrah /> },
-    
+      { path: "/umrah/search", element: <UmrahSearch /> },
       { path: "/trips/:id", element: <TripDetails /> },
       { path: "/hotels/:id", element: <HotelDetails /> },
       { path: "/blog/:id", element: <BlogPost /> },
