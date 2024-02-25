@@ -132,7 +132,7 @@ const TripDetails = () => {
           <p>Zurich town, Switzerland</p>
         </div>
       </div>
-      <ImageCarousel images={data?.images ? data.images : []}/>
+      <ImageCarousel images={data?.images ? data.images : []} />
       <div className="mt-5 flex-align-center gap-2 sm:gap-3 flex-col sm:flex-row">
         <div className="flex-align-center gap-x-2 sm:gap-x-3">
           <span className="text-sm text-green-500 bg-green-500/20 px-2 rounded">
@@ -158,9 +158,7 @@ const TripDetails = () => {
       </div>
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <h1 className="text-3xl font-bold capitalize mt-4">
-            {data?.title}
-          </h1>
+          <h1 className="text-3xl font-bold capitalize mt-4">{data?.title}</h1>
           <p className="mt-2">Zurich, switzerland</p>
           {/* Tab Component */}
           <div className="pt-10">
@@ -194,7 +192,7 @@ const TripDetails = () => {
           <button className="btn btn-primary mt-5">more details</button>
         </div>
         <div className="lg:col-span-1">
-          <PriceDetails />
+          {data && <PriceDetails trip={data} />}
         </div>
       </div>
 

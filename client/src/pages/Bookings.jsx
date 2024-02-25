@@ -8,19 +8,19 @@ const Bookings = () => {
       <div className="pt-8">
         <TabWrapper>
           <TabList>
-            <Tab>Total Bookings (1)</Tab>
-            <Tab>Upcoming (1)</Tab>
-            <Tab>Cancelled (1)</Tab>
+            <Tab>Total Bookings</Tab>
+            {/* <Tab>Upcoming (1)</Tab> */}
+            {/* <Tab>Cancelled (1)</Tab> */}
           </TabList>
           <TabPanel>
             <Total />
           </TabPanel>
-          <TabPanel>
+          {/* <TabPanel>
             <Upcoming />
           </TabPanel>
           <TabPanel>
             <Cancelled />
-          </TabPanel>
+          </TabPanel> */}
         </TabWrapper>
       </div>
     </div>
