@@ -21,22 +21,6 @@ const NavFilters = ({ url }) => {
             <p>Hajj</p>
           </NavLink>
         </div>
-        <div className="flex-align-center gap-x-2">
-          <select className="bg-transparent border-0 outline-none text-slate-500 dark:text-slate-300 dark:bg-card-dark ">
-            <option value="round-trip">Round Trip</option>
-            <option value="round-trip">Holiday Trip</option>
-            <option value="round-trip">Vacation</option>
-            <option value="round-trip">Tour Trip</option>
-          </select>
-          <select className="bg-transparent border-0 outline-none text-slate-500 dark:text-slate-300 dark:bg-card-dark">
-            <option value="round-trip">1 Passenger</option>
-            <option value="round-trip">2 Passengers</option>
-            <option value="round-trip">3 Passengers</option>
-            <option value="round-trip">4 Passengers</option>
-            <option value="round-trip">5 Passengers</option>
-            <option value="round-trip">Over 5 Passengers</option>
-          </select>
-        </div>
       </div>
       <div className="flex-col mt-4 gap-x-4 flex-center-between gap-y-4 md:gap-y-0 md:flex-row">
         <div className="flex-col flex-1 w-full flex-align-center gap-x-4 md:w-fit sm:flex-row gap-y-4 sm:gap-y-0">
