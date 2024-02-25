@@ -17,7 +17,7 @@ const ProfileEdit = () => {
   const dispatch = useDispatch()
   const { user: stateUser } = useSelector(state => state.auth)
   const [user, setUser] = useState({...defaultuser, ...stateUser});
-  const defaultDate = new Date(user.dob).toISOString().substr(0, 10)
+  const defaultDate = new Date(user.dob ? user.dob : defaultuser.dob).toISOString().substr(0, 10)
   
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
