@@ -12,6 +12,7 @@ function Timeline({timelineElements}) {
   let schoolIconStyles = { background: "#f9c74f" };
   console.log(timelineElements)
   return (
+    <>
     <div>
       <h1 className="text-5xl sm:text-[10rem] lg:text-[15rem] md:text-center">Timeline</h1>
       <VerticalTimeline>
@@ -41,9 +42,9 @@ function Timeline({timelineElements}) {
               </div>
               {showButton && (
                 <a
-                  className={`button 
-                  ${isWorkIcon ? "workButton" : "schoolButton"}`}
-                  href={element.buttonLink}
+                className={`button 
+                ${isWorkIcon ? "workButton" : "schoolButton"}`}
+                href={element.buttonLink}
                 >
                   {element.buttonText}
                 </a>
@@ -53,6 +54,7 @@ function Timeline({timelineElements}) {
         })}
       </VerticalTimeline>
     </div>
+    </>
   );
 }
 
