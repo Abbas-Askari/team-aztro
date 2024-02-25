@@ -1,4 +1,21 @@
-const Filters = ({ filters }) => {
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { addFilter, removeFilter } from "../features/uiSlice";
+
+const Filters = ({ filters, onFilterChange }) => {
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
+
+  const handleCheckboxChange = (filterName) => {
+    const dispatch = useDispatch();
+  const selectedFilters = useSelector((state) => state.ui.selectedFilters);
+    const updatedFilters = selectedFilters.includes(filterName)
+      ? selectedFilters.filter((filter) => filter !== filterName)
+      : [...selectedFilters, filterName];
+    setSelectedFilters(updatedFilters);
+    onFilterChange(updatedFilters);
+  };
+
   return (
     <>
       {filters.map(({ title, filters }) => (
@@ -8,7 +25,12 @@ const Filters = ({ filters }) => {
             <div className="mt-3" key={name}>
               <div className="flex-center-between">
                 <div className="input-check">
-                  <input type="checkbox" name="" id={name} />
+                  <input
+                    type="checkbox"
+                    id={name}
+                    checked={selectedFilters.includes(name)}
+                    onChange={() => handleCheckboxChange(name)}
+                  />
                   <label htmlFor={name} className="capitalize">
                     {name}
                   </label>

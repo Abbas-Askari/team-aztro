@@ -10,6 +10,7 @@ const mode =
     isSidebarOpen: false,
     isFilterMenuOpen: false,
     mode: mode,
+    selectedFilters: [],
   };
   console.log({initialState})
 
@@ -47,6 +48,14 @@ const uiSlice = createSlice({
     turnOnLightMode: (state) => {
       state.mode = "light";
     },
+    addFilter(state, action) {
+      state.selectedFilters.push(action.payload);
+    },
+    removeFilter(state, action) {
+      state.selectedFilters = state.selectedFilters.filter(
+        (filter) => filter !== action.payload
+      );
+    },
   },
 });
 
@@ -65,4 +74,5 @@ export const {
   closeFilterMenu,
   turnOnDarkMode,
   turnOnLightMode,
+
 } = uiSlice.actions;

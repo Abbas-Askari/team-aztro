@@ -14,7 +14,7 @@ const MapComponent = () => {
     }).addTo(map);
 
     const taxiIcon = L.icon({
-      iconUrl: './img/avatar-1.png',
+      iconUrl: 'img/taxi.png',
       iconSize: [70, 70]
     });
 

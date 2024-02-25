@@ -5,6 +5,8 @@ import HomeBanner from "../banners/banner.jpg";
 import Banner from "../components/common/Banner";
 import "./NewTripForm.css";
 import MapComponent from "./map/MapComponent";
+import { ImageSlider } from "./ImageSlider";
+import Carousel from 'react-elastic-carousel'
 
 export const NewTripForm = () => {
   const { errors, loading } = useSelector((state) => state.newTrip);
@@ -65,6 +67,13 @@ export const NewTripForm = () => {
     );
   }
 
+  const breakPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 2 },
+    { width: 768, itemsToShow: 3 },
+    { width: 1200, itemsToShow: 4 },
+  ];
+
   return (
     <div className="flex items-center">
       <div className="z-0 flex-1">
@@ -72,33 +81,36 @@ export const NewTripForm = () => {
 
       </div>
       <div className="flex-1">
-
-
-
         <form
           onSubmit={submit}
           className="max-w-lg mx-auto p-4 bg-white shadow-md rounded-md"
         >
-          <div>
-            {Array.from(images).map((image) => (
-              <img
-                className="w-96 object-contain bg-red-400"
-                src={URL.createObjectURL(image)}
-              />
-            ))}
-          </div>
+          {/* <div>
+            
+          </div> */}
 
-          <div>
-            <label htmlFor="name">Trip Name</label>
-            <input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              type="text"
-              name="name"
-              placeholder="Trip Name"
-              id="name"
+      <div>
+        <Carousel breakPoints={breakPoints}>
+        {Array.from(images).map((image) => (
+              <img
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '250px',
+                width: '100%',
+                backgroundColor: '#fff',
+                color: '#fff',
+                margin: '0 15px',
+                fontSize: '4em'
+              }}
+              className="w-96 object-contain bg-red-400"
+              src={URL.createObjectURL(image)}
             />
-          </div>
+            
+            ))}
+        </Carousel>
+      </div>
 
           <div className="mb-4">
             <label
@@ -158,6 +170,8 @@ export const NewTripForm = () => {
             <div className="text-error text-xs">
               {errors.find((err) => err.path === "price")?.message}
             </div>
+            <div className="mt-2">
+
             <label htmlFor="files" className=" btn btn-primary">
               <span className="">Add images</span>
               <input
@@ -170,6 +184,7 @@ export const NewTripForm = () => {
                 }
               />
             </label>
+            </div>
           </div>
 
           {tripEvents.map((event, i) => (

@@ -1,19 +1,5 @@
 export const filters = [
   {
-    id: 1,
-    title: "open status",
-    filters: [
-      {
-        name: "Open Now",
-        number: 235,
-      },
-      {
-        name: "closed now",
-        number: 124,
-      },
-    ],
-  },
-  {
     id: 2,
     title: "amenities",
     filters: [
@@ -40,26 +26,8 @@ export const filters = [
     ],
   },
   {
-    id: 3,
-    title: "number of rooms",
-    filters: [
-      {
-        name: "1 room",
-        number: 125,
-      },
-      {
-        name: "2 rooms",
-        number: 56,
-      },
-      {
-        name: "3 &  above",
-        number: 37,
-      },
-    ],
-  },
-  {
     id: 4,
-    title: "salary range",
+    title: "Price range",
     filters: [
       {
         name: "$0 - $100",

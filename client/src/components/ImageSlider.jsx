@@ -1,36 +1,26 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 export const ImageSlider = ({ images }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-    }, 3000);
-    return () => clearInterval(intervalId);
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000); // Change image every 3 seconds
+
+    return () => clearInterval(interval);
   }, [images.length]);
 
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
-  };
-
   return (
-    <div className="slider">
-      <button className="prev" onClick={prevSlide}>
-        &#10094;
-      </button>
-      {images.map((image, index) => (
-        <div key={index} className={index === currentIndex ? "slide active" : "slide"}>
-          <img src={image} alt={`Image ${index}`} />
-        </div>
+    <div>
+      {images.map((image, i) => (
+        <img
+          key={i}
+          className={i === index ? "visible" : "hidden"}
+          src={URL.createObjectURL(image)}
+          alt={`Image ${i + 1}`}
+        />
       ))}
-      <button className="next" onClick={nextSlide}>
-        &#10095;
-      </button>
     </div>
   );
 };
