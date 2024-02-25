@@ -58,4 +58,4 @@ async function getReviewsOfTrip(req, res) {
   return res.json({ reviews });
 }
 
-module.exports = { getAllReviews, createReview };
+module.exports = { getAllReviews, createReview, getReviewsOfTrip };

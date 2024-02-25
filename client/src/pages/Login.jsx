@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { loginAsync } from "../authSlice";
 import { useForm } from "react-hook-form";
+import ImgSrc from "../components/login7.jpg"
 
 const Login = () => {
 
@@ -28,7 +29,9 @@ const Login = () => {
 
 
   return (
-    <form method="POST" onSubmit={handleSubmit(submit)} autoComplete="off" className="min-h-screen flex-center-center pt-20">
+    <div className="flex">
+        
+    <form method="POST" onSubmit={handleSubmit(submit)} autoComplete="off" className="min-h-screen flex-center-center pt-20 bg-gray-100 flex-1">
       <div className="max-w-[450px] w-[95%] mx-auto">
         <h1 className="heading">let's get started</h1>
         <div className="mt-3">
@@ -85,6 +88,11 @@ const Login = () => {
         </div>
       </div>
     </form>
+    <div className="flex-1 h-screen">
+        <img className="h-screen " src={ImgSrc} alt="" />
+      </div>
+    </div>
+
   );
 };
 

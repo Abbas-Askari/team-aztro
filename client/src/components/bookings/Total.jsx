@@ -1,25 +1,65 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+function calculateTotal(booking) {
+  return (
+    booking.trip.price +
+    booking.extras.reduce((acc, { price }) => {
+      return acc + price;
+    }, 0)
+  );
+}
+
 const Total = () => {
+  const [loading, setLoading] = useState(true);
+  const [bookings, setBookings] = useState([]);
+  useEffect(() => {
+    fetch(import.meta.env.VITE_BACKEND + "/trips/bookings", {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setBookings(data.bookings);
+        setLoading(false);
+      });
+  });
+
+  if (loading) {
+    return <div>loading ...</div>;
+  }
+
   return (
     <>
-      <div className="md:flex-center-between flex-col md:flex-row gap-4 bg-white p-3 rounded-lg border dark:bg-card-dark dark:border-dark">
-        <div className="flex-align-center gap-4">
-          <div>
-            <img
-              src="/images/place (26).jpg"
-              alt=""
-              className="w-40 h-32 object-cover rounded-lg"
-            />
+      <div className="flex flex-col">
+        {bookings.map((booking) => (
+          <div
+            key={booking._id}
+            className="md:flex-center-between flex-col md:flex-row gap-4 bg-white p-3 rounded-lg border dark:bg-card-dark dark:border-dark"
+          >
+            <div className="flex-align-center gap-4">
+              <div>
+                <img
+                  src={
+                    import.meta.env.VITE_BACKEND + "/" + booking.trip.images[0]
+                  }
+                  // src="/images/place (26).jpg"
+                  alt=""
+                  className="w-40 h-32 object-cover rounded-lg"
+                />
+              </div>
+              <div>
+                <h1 className="font-semibold text-lg">{booking.trip.title}</h1>
+                <p>{booking.trip.description}</p>
+              </div>
+            </div>
+            <h1 className="mt-3 md:mt-0">${calculateTotal(booking)}</h1>
           </div>
-          <div>
-            <h1 className="font-semibold text-lg">Baan Wanglang Reverside</h1>
-            <p>342 Soi Wat Rakang, Pannok Rd, Bangkok, Thailand</p>
-          </div>
-        </div>
-        <h1 className="mt-3 md:mt-0">Booked on Feb 8, 2023</h1>
+        ))}
       </div>
-      <div className="md:flex-center-between mt-4 flex-col md:flex-row gap-4 bg-white p-3 rounded-lg border dark:bg-card-dark dark:border-dark">
+      {/* <div className="md:flex-center-between mt-4 flex-col md:flex-row gap-4 bg-white p-3 rounded-lg border dark:bg-card-dark dark:border-dark">
         <div>
           <div className="flex-align-center gap-x-5">
             <h1>Booking ID:</h1>
@@ -54,7 +94,7 @@ const Total = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
