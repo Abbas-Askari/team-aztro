@@ -16,7 +16,7 @@ const defaultuser = {
 const ProfileEdit = () => {
   const dispatch = useDispatch()
   const { user: stateUser } = useSelector(state => state.auth)
-  const [user, setUser] = useState({...defaultuser, ...stateUser});
+  const [user, setUser] = useState({...stateUser, ...defaultuser});
   const defaultDate = new Date(user.dob ? user.dob : defaultuser.dob).toISOString().substr(0, 10)
   
   const handleChange = (e) => {
@@ -31,7 +31,7 @@ const ProfileEdit = () => {
     <div className="mt-8">
       <div className="flex-center-between">
         <h1 className="heading">Hi, I'm {user.name}</h1>
-        <button onClick={() => dispatch(editUserAsync({user}))} className="px-3 rounded-full bg-slate-200 dark:bg-dark-light py-1">
+        <button onClick={() => dispatch(editUserAsync({user}))} className="btn px-3 rounded-full bg-slate-200 dark:bg-dark-light py-1">
           Save Profile
         </button>
       </div>
