@@ -14,9 +14,10 @@ const Pagination = ({ itemsPerPage, url }) => {
   const fetchData = async () => {
     dispatch(setIsLoading(true));
     try {
-      const response = await fetch(url);
+      const response = await fetch(import.meta.env.VITE_BACKEND + "/trips");
+      // const dat
       const data = await response.json();
-      setData(data);
+      setData(data.trips);
       dispatch(setIsLoading(false));
     } catch (error) {
       dispatch(setIsLoading(false));
