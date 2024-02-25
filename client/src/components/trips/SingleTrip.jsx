@@ -4,19 +4,21 @@ import { Link } from "react-router-dom";
 
 const SingleHotel = ({
   id,
-  name,
+  title,
   image,
   price,
   rating,
   phone,
+  images,
+  _id,
 }) => {
   return (
     <div className="bg-white group border dark:border-dark rounded-lg dark:bg-card-dark flex-1 basis-[18rem]">
       <div className="relative overflow-hidden rounded-lg sm:cursor-pointer">
-        <Link to={`/hotels/${id}`} className="!opacity-100">
+        <Link to={`/trip/${id || _id}`} className="!opacity-100">
           <img
-            src={image}
-            alt={name}
+            src={image || import.meta.env.VITE_BACKEND + "/" + images[0]}
+            alt={title}
             loading="lazy"
             className="w-full h-[250px] object-cover group-hover:scale-125 transition-a"
           />
@@ -29,16 +31,20 @@ const SingleHotel = ({
         <div className="flex-center-between">
           <Link to={`/trips/${id}`} className="group-hover:text-primary">
             <h1 className="text-xl font-semibold">
-              {name?.length > 20 ? `${name?.slice(0, 20)}...` : name}
+              {title?.length > 20 ? `${title?.slice(0, 20)}...` : title}
             </h1>
           </Link>
-          <ReactStars
-            size={16}
-            isHalf={true}
-            activeColor="#ffd700"
-            value={rating}
-            edit={false}
-          />
+          {rating ? (
+            <ReactStars
+              size={16}
+              isHalf={true}
+              activeColor="#ffd700"
+              value={rating}
+              edit={false}
+            />
+          ) : (
+            <span className=" text-gray">No review</span>
+          )}
         </div>
         <div className="mt-3 flex-center-between">
           <div className="flex-align-center gap-x-2">

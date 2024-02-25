@@ -8,7 +8,7 @@ const tripSchema = z.object({
   timeline: z.array(
     z.object({
       name: z.string().min(3),
-      time: z.string().datetime(),
+      time: z.string(),
       description: z.string().min(10),
     })
   ),
@@ -28,8 +28,8 @@ export const createTripAsync = createAsyncThunk(
   async (data, { dispatch, getState }) => {
     try {
       dispatch(setLoading(true));
-      console.log({ data });
       const parsed = tripSchema.safeParse(data);
+      console.log({ parsed });
 
       if (parsed.success) {
         const validated = parsed.data;

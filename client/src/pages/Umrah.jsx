@@ -3,7 +3,9 @@ import Banner from "../components/common/Banner";
 import NavFilters from "../components/common/NavFilters";
 import FlightBanner from "../assets/7.jpg";
 import { BestWay, Deals, FAQs } from "../components/flights";
-import Timeline from '../components/timeline/Timeline'
+import Timeline from "../components/timeline/Timeline";
+import umrahTimelineElements from "../components/timeline/timelineElements";
+
 
 const Umrah = () => {
   return (
@@ -12,7 +14,7 @@ const Umrah = () => {
       <NavFilters url="/umrah/search" />
       <div className="mt-5 px-[3%] md:px-[6%]">
         <Deals />
-        <Timeline></Timeline>
+        <Timeline timelineElements={umrahTimelineElements}/>
         <FAQs />
       </div>
     </div>
