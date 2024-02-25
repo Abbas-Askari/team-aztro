@@ -17,12 +17,19 @@ export const NewTripForm = () => {
 
   const [events, setEvents] = useState([]);
 
-  console.log(events);
-
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [eventTime, setEventTime] = useState();
   const [eventAmenities, setEventAmenities] = useState([]);
+  
+  const [sourceCoords, setSourceCoords] = useState([])
+  const [destinationCoords, setDestinationCoords] = useState([])
+
+  const setCoordinates = (source, destination) => {
+    setSourceCoords(source)
+    setDestinationCoords(destination)
+    console.log(source, description)
+  }
 
   const amenities = [
     "Free wifi 24/7",
@@ -77,7 +84,7 @@ export const NewTripForm = () => {
   return (
     <div className="flex items-center">
       <div className="z-0 flex-1">
-        <MapComponent></MapComponent>
+        <MapComponent setCoordinates={setCoordinates}/>
 
       </div>
       <div className="flex-1">
@@ -85,9 +92,6 @@ export const NewTripForm = () => {
           onSubmit={submit}
           className="max-w-lg mx-auto p-4 bg-white shadow-md rounded-md"
         >
-          {/* <div>
-            
-          </div> */}
 
       <div>
         <Carousel breakPoints={breakPoints}>
@@ -111,6 +115,21 @@ export const NewTripForm = () => {
             ))}
         </Carousel>
       </div>
+      <div className="mt-2">
+
+            <label htmlFor="files" className=" btn btn-primary">
+              <span className="">Add images</span>
+              <input
+                type="file"
+                id="files"
+                multiple
+                className="hidden"
+                onChange={(e) =>
+                  setImages((img) => [...Array.from(e.target.files), ...img])
+                }
+              />
+            </label>
+            </div>
 
           <div className="mb-4">
             <label
@@ -170,21 +189,7 @@ export const NewTripForm = () => {
             <div className="text-error text-xs">
               {errors.find((err) => err.path === "price")?.message}
             </div>
-            <div className="mt-2">
-
-            <label htmlFor="files" className=" btn btn-primary">
-              <span className="">Add images</span>
-              <input
-                type="file"
-                id="files"
-                multiple
-                className="hidden"
-                onChange={(e) =>
-                  setImages((img) => [...Array.from(e.target.files), ...img])
-                }
-              />
-            </label>
-            </div>
+            
           </div>
 
           {tripEvents.map((event, i) => (
@@ -216,7 +221,7 @@ export const NewTripForm = () => {
           )}
 
       {adding && (
-        <div className="mt-4">
+        <div className="my-4">
           <div className="mb-4">
             <label
               htmlFor="eventname"
@@ -250,32 +255,6 @@ export const NewTripForm = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
-              Amenities
-            </label>
-            <div className="flex flex-col gap-2 mt-2">
-              {amenities.map((amenity, index) => (
-                <label key={index} className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-5 w-5 text-indigo-600"
-                    checked={eventAmenities.includes(amenity)}
-                    onChange={() =>
-                      setEventAmenities((amenities) =>
-                        amenities.includes(amenity)
-                          ? amenities.filter((item) => item !== amenity)
-                          : [...amenities, amenity]
-                      )
-                    }
-                  />
-                  <span className="ml-2">{amenity}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-      <div className="mb-4">
         <label
           htmlFor="eventstart"
           className="block text-sm font-medium text-gray-700"
@@ -290,8 +269,7 @@ export const NewTripForm = () => {
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         />
       </div>
-
-      {/* <div>
+      <div>
         <button
           type="button"
           onClick={() => {
@@ -317,9 +295,36 @@ export const NewTripForm = () => {
           className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Close
-        </button> */}
-      {/* </div> */}
-
+        </button>
+      </div>
+        </div>
+      )}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Amenities
+            </label>
+            <div className="flex flex-col gap-2 mt-2">
+              {amenities.map((amenity, index) => (
+                <label key={index} className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    className="form-checkbox h-5 w-5 text-indigo-600"
+                    checked={eventAmenities.includes(amenity)}
+                    onChange={() =>
+                      setEventAmenities((amenities) =>
+                        amenities.includes(amenity)
+                          ? amenities.filter((item) => item !== amenity)
+                          : [...amenities, amenity]
+                      )
+                    }
+                  />
+                  <span className="ml-2">{amenity}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+      
+    
           <button
             disabled={loading}
             className=" btn btn-primary  disabled:opacity-30 disabled:cursor-not-allowed"
