@@ -80,6 +80,7 @@ export const NewTripForm = () => {
         reviews: [],
         agent: "65d9a617923591d668f727f2",
         images,
+        amenities: selectedAmenities,
       })
     );
   }
@@ -121,6 +122,9 @@ export const NewTripForm = () => {
                 />
               ))}
             </Carousel>
+            <div className="text-error text-xs">
+              {errors.find((err) => err.path === "images")?.message}
+            </div>
           </div>
           <div className="mt-2">
             <label htmlFor="files" className=" btn btn-primary">
@@ -314,12 +318,20 @@ export const NewTripForm = () => {
                     type="checkbox"
                     className="form-checkbox h-5 w-5 text-indigo-600"
                     checked={eventAmenities.includes(amenity)}
-                    onChange={() => {
+                    onChange={(e) => {
                       setEventAmenities((amenities) =>
                         amenities.includes(amenity)
                           ? amenities.filter((item) => item !== amenity)
                           : [...amenities, amenity]
                       );
+                      if (e.target.checked) {
+                        setSelectedAmenities((amen) => [...amen, amenity]);
+                      } else {
+                        setSelectedAmenities((amen) =>
+                          amen.filter((item) => item !== amenity)
+                        );
+                      }
+                      console.log(selectedAmenities);
                     }}
                   />
                   <span className="ml-2">{amenity}</span>
