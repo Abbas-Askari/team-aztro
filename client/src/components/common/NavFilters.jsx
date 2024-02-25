@@ -10,7 +10,7 @@ const NavFilters = ({ url }) => {
         <div className="flex-align-center gap-x-5">
           <NavLink to="/" end className="flex-align-center gap-x-2">
             <BiBed />
-            <p>Hotel</p>
+            <p>Trips</p>
           </NavLink>
           <NavLink to="/umrah" className="flex-align-center gap-x-2">
             <FaPlaneArrival />

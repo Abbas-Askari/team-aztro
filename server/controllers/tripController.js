@@ -20,6 +20,7 @@ const tripSchema = z.object({
   price: z.number(),
   agent: z.string(),
   images: z.array(z.string()),
+  amenities: z.array(z.string()),
 });
 
 async function getAllTrips(req, res) {

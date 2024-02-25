@@ -20,7 +20,7 @@ const tripSchema = z.object({
     })
   ),
   agent: z.string(),
-  images: z.any().refine((val) => val.length > 0, "File is required"),
+  images: z.any().refine((val) => val.length > 0, "Images are required"),
   amenities: z.array(z.string()),
 });
 

@@ -27,6 +27,7 @@ const TripSchema = new mongoose.Schema({
       type: [Number],
     },
   },
+  amenities: [{ type: String }],
 });
 
 const Trip = mongoose.model("Trip", TripSchema);

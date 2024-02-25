@@ -11,24 +11,26 @@ const PriceDetails = ({ trip }) => {
   ]);
   const navigate = useNavigate();
 
-  const extras = [
-    {
-      name: "Allow to bring pets",
-      price: 10,
-    },
-    {
-      name: "Breakfast",
-      price: 15,
-    },
-    {
-      name: "Parking",
-      price: 3,
-    },
-    {
-      name: "Extra Pillow",
-      price: 1,
-    },
-  ];
+  // const extras = [
+  //   {
+  //     name: "Allow to bring pets",
+  //     price: 10,
+  //   },
+  //   {
+  //     name: "Breakfast",
+  //     price: 15,
+  //   },
+  //   {
+  //     name: "Parking",
+  //     price: 3,
+  //   },
+  //   {
+  //     name: "Extra Pillow",
+  //     price: 1,
+  //   },
+  // ];
+
+  const extras = trip.amenities.map((name) => ({ name, price: 5 }));
 
   const featuresPrice = features.reduce((acc, { price }) => acc + price, 0);
   const total = trip.price + featuresPrice;
@@ -62,15 +64,9 @@ const PriceDetails = ({ trip }) => {
     <div className="rounded-lg bg-white border dark:bg-card-dark dark:border-dark p-4">
       <div className="flex-center-between pb-2 border-b dark:border-b-dark">
         <h1>
-          <span className="text-4xl md:text-5xl font-bold">$142</span>{" "}
-          <span className="opacity-80 text-sm">/night</span>{" "}
-          <span className="line-through opacity-80 text-sm">$182</span>
+          <span className="text-4xl md:text-5xl font-bold">${total}</span>{" "}
         </h1>
-        <div className="flex-shrink-0">
-          <span className="px-1 py-[2px] text-sm text-white bg-primary rounded-full">
-            20% OFF
-          </span>
-        </div>
+        <div className="flex-shrink-0"></div>
       </div>
 
       <div className="mt-3">
