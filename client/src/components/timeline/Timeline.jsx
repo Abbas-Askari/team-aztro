@@ -6,17 +6,16 @@ import {
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import umrahTimelineElements from "./timelineElements";
 
-function App() {
+function Timeline({timelineElements}) {
   let workIconStyles = { background: "#06D6A0" };
   let schoolIconStyles = { background: "#f9c74f" };
-
+  console.log(timelineElements)
   return (
     <div>
       <h1 className="text-5xl sm:text-[10rem] lg:text-[15rem] md:text-center">Timeline</h1>
       <VerticalTimeline>
-        {umrahTimelineElements.map((element) => {
+        {timelineElements.map((element) => {
           let isWorkIcon = element.icon === "work";
           let showButton =
             element.buttonText !== undefined &&
@@ -57,4 +56,4 @@ function App() {
   );
 }
 
-export default App;
+export default Timeline;
