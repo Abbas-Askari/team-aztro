@@ -30,6 +30,7 @@ import TripSearch from "./pages/TripSearch";
 import Navbar from "./components/common/Navbar";
 import SignUp from "./components/Signup.jsx";
 import { NewTripForm } from "./components/NewTripForm.jsx";
+import TripDetails from "./pages/TripDetails.jsx";
 import Umrah from "./pages/Umrah";
 
 const router = createBrowserRouter([
