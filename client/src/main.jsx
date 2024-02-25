@@ -50,16 +50,16 @@ const router = createBrowserRouter([
       { path: "/blog", element: <Blog /> },
       { path: "/bookings", element: <Bookings /> },
       { path: "/hotels/:id/confirm-booking", element: <ConfirmBooking /> },
-      { path: "/hotel/:id/booking-sucess", element: <BookingSuccess /> },
+      { path: "/hotels/:id/booking-sucess", element: <BookingSuccess /> },
       { path: "/umrah", element: <Umrah /> },
     
-      { path: "/trip/:id", element: <TripDetails /> },
+      { path: "/trips/:id", element: <TripDetails /> },
       { path: "/hotels/:id", element: <HotelDetails /> },
       { path: "/blog/:id", element: <BlogPost /> },
       { path: "/register", element: <Register /> },
       { path: "*", element: <PageNotFound /> },
       {
-        path: "/new-trip",
+        path: "/trips/new",
         element: <NewTripForm />,
       },
       {
