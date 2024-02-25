@@ -30,6 +30,7 @@ import TripSearch from "./pages/TripSearch";
 import Navbar from "./components/common/Navbar";
 import SignUp from "./components/Signup.jsx";
 import { NewTripForm } from "./components/NewTripForm.jsx";
+import Umrah from "./pages/Umrah";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,8 @@ const router = createBrowserRouter([
   { path: "/bookings", element: <Bookings /> },
   { path: "/hotels/:id/confirm-booking", element: <ConfirmBooking /> },
   { path: "/hotel/:id/booking-sucess", element: <BookingSuccess /> },
+  { path: "/umrah", element: <Umrah /> },
+
   // { path: "/trip/:id", element: <TripDetails /> },
   { path: "/hotels/:id", element: <HotelDetails /> },
   { path: "/blog/:id", element: <BlogPost /> },

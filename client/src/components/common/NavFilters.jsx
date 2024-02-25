@@ -12,9 +12,9 @@ const NavFilters = ({ url }) => {
             <BiBed />
             <p>Hotel</p>
           </NavLink>
-          <NavLink to="/flights" className="flex-align-center gap-x-2">
+          <NavLink to="/umrah" className="flex-align-center gap-x-2">
             <FaPlaneArrival />
-            <p>Flight</p>
+            <p>Umrah</p>
           </NavLink>
           <NavLink to="/cars" className="flex-align-center gap-x-2">
             <BiCar />

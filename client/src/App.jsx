@@ -62,6 +62,7 @@ function App() {
           <Route path="/rewards" element={<Rewards />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/bookings" element={<Bookings />} />
+          
           <Route
             path="/hotels/:id/confirm-booking"
             element={<ConfirmBooking />}
