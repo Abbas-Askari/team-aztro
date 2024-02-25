@@ -7,10 +7,10 @@ import "./NewTripForm.css";
 import MapComponent from "./map/MapComponent";
 import { ImageSlider } from "./ImageSlider";
 import Carousel from "react-elastic-carousel";
+import { useNavigate } from "react-router-dom";
 
 export const NewTripForm = () => {
   const { errors, loading } = useSelector((state) => state.newTrip);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -34,11 +34,11 @@ export const NewTripForm = () => {
   };
 
   const amenities = [
-    "Free wifi 24/7",
-    "Free computer",
-    "Free Dstv/7",
-    "Free clean bathroom",
-    "Breakfast included",
+    "FAST WiFi",
+    "Accomodation",
+    "Food",
+    "Seat+",
+    "Seat Pro Max",
   ];
   const [tripEvents, setTripEvents] = useState([]);
   const [adding, setAdding] = useState(false);
