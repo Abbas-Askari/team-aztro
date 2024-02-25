@@ -18,7 +18,7 @@ const Home = () => {
         banner={HomeBanner}
         title="book with us and enjoy your journey!"
       />
-      <NavFilters url="/hotels/search" />
+      <NavFilters url="/trips/search" />
       <div className="mt-5 px-[3%] md:px-[6%]">
         <BestPlaces />
         <FeaturedDestinations />

@@ -112,6 +112,7 @@ export const editUserAsync = createAsyncThunk(
 
       const result = await res.json()
 
+      console.log(result)
       dispatch(setUser(result))
 
     } catch (error) {

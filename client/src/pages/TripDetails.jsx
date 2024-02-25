@@ -167,19 +167,12 @@ const TripDetails = () => {
             <TabWrapper>
               <TabList>
                 <Tab>Description</Tab>
-                {/* <Tab>Features</Tab>
-                <Tab>Room & Price</Tab> */}
                 <Tab>Reviews</Tab>
               </TabList>
               <TabPanel>
                 <Description text={data?.description} />
               </TabPanel>
-              {/* <TabPanel>
-                <Features />
-              </TabPanel>
-              <TabPanel>
-                <RoomPrice />
-              </TabPanel> */}
+
               <TabPanel>
                 <Reviews reviews={data?.reviews || []} />
               </TabPanel>
@@ -200,7 +193,24 @@ const TripDetails = () => {
 
       {/* <RoomSelections /> */}
       <div className="my-4">
-        {data && data.timeline.length !== 0 && <Timeline timelineElements={data?.timeline.map(tle => {return {id: tle._id, title: tle.name, descriptions: [tle.description], date: new Date(tle.time).toLocaleTimeString() + ", " + new Date(tle.time).toDateString(), location: "", buttonText: "", icon: "work"}})} />}
+        {data && data.timeline.length !== 0 && (
+          <Timeline
+            timelineElements={data?.timeline.map((tle) => {
+              return {
+                id: tle._id,
+                title: tle.name,
+                descriptions: [tle.description],
+                date:
+                  new Date(tle.time).toLocaleTimeString() +
+                  ", " +
+                  new Date(tle.time).toDateString(),
+                location: "",
+                buttonText: "",
+                icon: "work",
+              };
+            })}
+          />
+        )}
       </div>
       <AddReview />
       <Trending />

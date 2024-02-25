@@ -6,6 +6,7 @@ export const filters = [
       {
         name: "Wifi",
         number: 126,
+        fn: (trips) => trips.amenities.includes("Wifi"),
       },
       {
         name: "parking space",

@@ -82,17 +82,8 @@ const TripSearch = () => {
                 <div className=" md:hidden icon-box bg-white dark:bg-card-dark card-shadow dark:shadow-none card-bordered !rounded-md">
                   <BiFilterAlt />
                 </div>
-                <h3 className="text-sm">
-                  <span className="text-muted">Showing:</span>125 Hotels
-                </h3>
               </div>
-              <div className="flex-align-center gap-2">
-                <p className="text-sm">Sort by:</p>
-                <div className="flex-align-center gap-2">
-                  <span className="text-sm text-primary">Posted Recently</span>
-                  <FiChevronDown />
-                </div>
-              </div>  
+              <div className="flex-align-center gap-2"></div>
             </div>
             <TripsList />
             <Pagination itemsPerPage={9} url="/data/trips.json" />

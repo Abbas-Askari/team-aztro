@@ -16,7 +16,8 @@ import { logout } from "../../authSlice";
 
 const Dropdown = () => {
   const { isDropdownOpen } = useSelector(uiStore);
-  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -68,12 +69,23 @@ const Dropdown = () => {
             <BiTagAlt className="text-muted" />
             <span className="text-muted">My Rewards</span>
           </Link>
+          {user.isAgent && (
+            <Link
+              to="/trips/new"
+              className="p-2 space-x-3 rounded-lg flex-align-center sm:cursor-pointer hover:bg-slate-100 dark:hover:bg-hover-color-dark"
+            >
+              <BiTagAlt className="text-muted" />
+              <span className="text-muted">New Trip</span>
+            </Link>
+          )}
           <Link
             to="/login"
             className="p-2 space-x-3 rounded-lg flex-align-center sm:cursor-pointer hover:bg-slate-100 dark:hover:bg-hover-color-dark"
           >
             <BiLogOut className="text-muted" />
-            <span onClick={() => dispatch(logout())} className="text-muted">Sign out</span>
+            <span onClick={() => dispatch(logout())} className="text-muted">
+              Sign out
+            </span>
           </Link>
         </motion.div>
       )}

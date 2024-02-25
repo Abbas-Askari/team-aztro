@@ -7,10 +7,10 @@ import "./NewTripForm.css";
 import MapComponent from "./map/MapComponent";
 import { ImageSlider } from "./ImageSlider";
 import Carousel from "react-elastic-carousel";
+import { useNavigate } from "react-router-dom";
 
 export const NewTripForm = () => {
   const { errors, loading } = useSelector((state) => state.newTrip);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -34,11 +34,11 @@ export const NewTripForm = () => {
   };
 
   const amenities = [
-    "Free wifi 24/7",
-    "Free computer",
-    "Free Dstv/7",
-    "Free clean bathroom",
-    "Breakfast included",
+    "FAST WiFi",
+    "Accomodation",
+    "Food",
+    "Seat+",
+    "Seat Pro Max",
   ];
   const [tripEvents, setTripEvents] = useState([]);
   const [adding, setAdding] = useState(false);
@@ -80,6 +80,7 @@ export const NewTripForm = () => {
         reviews: [],
         agent: "65d9a617923591d668f727f2",
         images,
+        amenities: selectedAmenities,
       })
     );
   }
@@ -121,6 +122,9 @@ export const NewTripForm = () => {
                 />
               ))}
             </Carousel>
+            <div className="text-error text-xs">
+              {errors.find((err) => err.path === "images")?.message}
+            </div>
           </div>
           <div className="mt-2">
             <label htmlFor="files" className=" btn btn-primary">
@@ -314,12 +318,20 @@ export const NewTripForm = () => {
                     type="checkbox"
                     className="form-checkbox h-5 w-5 text-indigo-600"
                     checked={eventAmenities.includes(amenity)}
-                    onChange={() => {
+                    onChange={(e) => {
                       setEventAmenities((amenities) =>
                         amenities.includes(amenity)
                           ? amenities.filter((item) => item !== amenity)
                           : [...amenities, amenity]
                       );
+                      if (e.target.checked) {
+                        setSelectedAmenities((amen) => [...amen, amenity]);
+                      } else {
+                        setSelectedAmenities((amen) =>
+                          amen.filter((item) => item !== amenity)
+                        );
+                      }
+                      console.log(selectedAmenities);
                     }}
                   />
                   <span className="ml-2">{amenity}</span>
