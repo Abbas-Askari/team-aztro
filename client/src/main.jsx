@@ -32,32 +32,43 @@ import SignUp from "./components/Signup.jsx";
 import { NewTripForm } from "./components/NewTripForm.jsx";
 import TripDetails from "./pages/TripDetails.jsx";
 import Umrah from "./pages/Umrah";
+import Layout from "./Layout";
 
 const router = createBrowserRouter([
+  
   {
     path: "/",
-    element: <App />,
-    
-  },
-  { path: "/", element: <Home /> },
-  { path: "/hotels", element: <Home /> },
-  { path: "/trips/search", element: <TripSearch /> },
-  { path: "/hotels/search", element: <HotelSearch /> },
-  { path: "/profile", element: <Profile /> },
-  { path: "/wallet", element: <Wallet /> },
-  { path: "/rewards", element: <Rewards /> },
-  { path: "/blog", element: <Blog /> },
-  { path: "/bookings", element: <Bookings /> },
-  { path: "/hotels/:id/confirm-booking", element: <ConfirmBooking /> },
-  { path: "/hotel/:id/booking-sucess", element: <BookingSuccess /> },
-  { path: "/umrah", element: <Umrah /> },
+    children: [
 
-  // { path: "/trip/:id", element: <TripDetails /> },
-  { path: "/hotels/:id", element: <HotelDetails /> },
-  { path: "/blog/:id", element: <BlogPost /> },
-  { path: "/login", element: <Login /> },
-  { path: "/register", element: <Register /> },
-  { path: "*", element: <PageNotFound /> },
+      { path: "/", element: <Home /> },
+      { path: "/hotels", element: <Home /> },
+      { path: "/trips/search", element: <TripSearch /> },
+      { path: "/hotels/search", element: <HotelSearch /> },
+      { path: "/profile", element: <Profile /> },
+      { path: "/wallet", element: <Wallet /> },
+      { path: "/rewards", element: <Rewards /> },
+      { path: "/blog", element: <Blog /> },
+      { path: "/bookings", element: <Bookings /> },
+      { path: "/hotels/:id/confirm-booking", element: <ConfirmBooking /> },
+      { path: "/hotel/:id/booking-sucess", element: <BookingSuccess /> },
+      { path: "/umrah", element: <Umrah /> },
+    
+      { path: "/trip/:id", element: <TripDetails /> },
+      { path: "/hotels/:id", element: <HotelDetails /> },
+      { path: "/blog/:id", element: <BlogPost /> },
+      { path: "/register", element: <Register /> },
+      { path: "*", element: <PageNotFound /> },
+      {
+        path: "/new-trip",
+        element: <NewTripForm />,
+      },
+      {
+        path: "/",
+        element: <App /> ,
+      },
+    ],
+    element: <Layout />    
+  },
   {
     path: "/login",
     element: <Login />,
@@ -65,10 +76,6 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
-  },
-  {
-    path: "/new-trip",
-    element: <NewTripForm />,
   },
 ]);
 
