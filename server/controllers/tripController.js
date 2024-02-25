@@ -2,6 +2,7 @@ const Trip = require("../models/tripModel");
 const { getValidAgent, getValidTrip } = require("../middleware/validate");
 const z = require("zod");
 const Event = require("../models/eventModel");
+const Booking = require("../models/bookingModel");
 
 const tripSchema = z.object({
   title: z.string().min(3, "title must be atleast 3 characters long"),
@@ -23,9 +24,6 @@ const tripSchema = z.object({
 
 async function getAllTrips(req, res) {
   const trips = await Trip.find().populate({ path: "reviews" }).exec();
-  console.log(
-    trips.map((t) => t.reviews.reduce((acc, { rating }) => acc + rating, 0))
-  );
   res.json({
     trips: trips.map((trip) => ({
       ...trip.toJSON(),
@@ -100,4 +98,38 @@ async function getTrip(req, res) {
   return res.json({ trip });
 }
 
-module.exports = { getAllTrips, createTrip, getUserTrips, getTrip };
+async function createBooking(req, res) {
+  const { tripID } = req.params;
+  const user = req.user;
+  const { extras } = req.body;
+
+  const booking = new Booking({
+    trip: tripID,
+    user: user,
+    extras,
+  });
+
+  await booking.save();
+  console.log({ booking, body: req.body });
+
+  return res.json({ booking });
+}
+
+async function getTripBookings(req, res) {
+  const user = req.user;
+  const bookings = await Booking.find({
+    user: user,
+  }).populate(["trip"]);
+  console.log({ bookings });
+
+  return res.json({ bookings });
+}
+
+module.exports = {
+  getAllTrips,
+  createTrip,
+  getUserTrips,
+  getTrip,
+  createBooking,
+  getTripBookings,
+};
