@@ -200,7 +200,7 @@ const TripDetails = () => {
 
       {/* <RoomSelections /> */}
       <div className="my-4">
-        {data?.timeline?.length !== 0 && <Timeline timelineElements={data?.timeline.map(tle => {return {id: tle._id, title: tle.name, descriptions: [tle.description], date: new Date(tle.time).toLocaleTimeString() + ", " + new Date(tle.time).toDateString(), location: "", buttonText: "", icon: "work"}})} />}
+        {data && data.timeline.length !== 0 && <Timeline timelineElements={data?.timeline.map(tle => {return {id: tle._id, title: tle.name, descriptions: [tle.description], date: new Date(tle.time).toLocaleTimeString() + ", " + new Date(tle.time).toDateString(), location: "", buttonText: "", icon: "work"}})} />}
       </div>
       <AddReview />
       <Trending />
