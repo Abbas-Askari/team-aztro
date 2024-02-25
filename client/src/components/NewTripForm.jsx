@@ -6,7 +6,7 @@ import Banner from "../components/common/Banner";
 import "./NewTripForm.css";
 import MapComponent from "./map/MapComponent";
 import { ImageSlider } from "./ImageSlider";
-import Carousel from 'react-elastic-carousel'
+import Carousel from "react-elastic-carousel";
 
 export const NewTripForm = () => {
   const { errors, loading } = useSelector((state) => state.newTrip);
@@ -21,15 +21,17 @@ export const NewTripForm = () => {
   const [eventDescription, setEventDescription] = useState("");
   const [eventTime, setEventTime] = useState();
   const [eventAmenities, setEventAmenities] = useState([]);
-  
-  const [sourceCoords, setSourceCoords] = useState([])
-  const [destinationCoords, setDestinationCoords] = useState([])
+
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
+
+  const [sourceCoords, setSourceCoords] = useState([]);
+  const [destinationCoords, setDestinationCoords] = useState([]);
 
   const setCoordinates = (source, destination) => {
-    setSourceCoords(source)
-    setDestinationCoords(destination)
-    console.log(source, description)
-  }
+    setSourceCoords(source);
+    setDestinationCoords(destination);
+    console.log(source, description);
+  };
 
   const amenities = [
     "Free wifi 24/7",
@@ -57,15 +59,23 @@ export const NewTripForm = () => {
   function submit(e) {
     e.preventDefault();
 
+    console.log(
+      tripEvents.map((event) => ({
+        name: event.eventName,
+        time: event.eventTime,
+        description: event.eventDescription,
+      }))
+    );
+
     dispatch(
       createTripAsync({
         title,
         description,
         price: +price,
-        timeline: events.map((event) => ({
-          name: event.eventName,
-          time: event.eventTime,
-          description: event.eventDescription,
+        timeline: tripEvents.map((event) => ({
+          name: event.name,
+          time: event.time,
+          description: event.description,
         })),
         reviews: [],
         agent: "65d9a617923591d668f727f2",
@@ -84,39 +94,35 @@ export const NewTripForm = () => {
   return (
     <div className="flex items-center">
       <div className="z-0 flex-1">
-        <MapComponent setCoordinates={setCoordinates}/>
-
+        <MapComponent setCoordinates={setCoordinates} />
       </div>
       <div className="flex-1">
         <form
           onSubmit={submit}
           className="max-w-lg mx-auto p-4 bg-white shadow-md rounded-md"
         >
-
-      <div>
-        <Carousel breakPoints={breakPoints}>
-        {Array.from(images).map((image) => (
-              <img
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '250px',
-                width: '100%',
-                backgroundColor: '#fff',
-                color: '#fff',
-                margin: '0 15px',
-                fontSize: '4em'
-              }}
-              className="w-96 object-contain bg-red-400"
-              src={URL.createObjectURL(image)}
-            />
-            
-            ))}
-        </Carousel>
-      </div>
-      <div className="mt-2">
-
+          <div>
+            <Carousel breakPoints={breakPoints}>
+              {Array.from(images).map((image) => (
+                <img
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "250px",
+                    width: "100%",
+                    backgroundColor: "#fff",
+                    color: "#fff",
+                    margin: "0 15px",
+                    fontSize: "4em",
+                  }}
+                  className="w-96 object-contain bg-red-400"
+                  src={URL.createObjectURL(image)}
+                />
+              ))}
+            </Carousel>
+          </div>
+          <div className="mt-2">
             <label htmlFor="files" className=" btn btn-primary">
               <span className="">Add images</span>
               <input
@@ -129,7 +135,7 @@ export const NewTripForm = () => {
                 }
               />
             </label>
-            </div>
+          </div>
 
           <div className="mb-4">
             <label
@@ -189,7 +195,6 @@ export const NewTripForm = () => {
             <div className="text-error text-xs">
               {errors.find((err) => err.path === "price")?.message}
             </div>
-            
           </div>
 
           {tripEvents.map((event, i) => (
@@ -197,7 +202,6 @@ export const NewTripForm = () => {
               <p>Time: {event.time.toString()}</p>
               <p>Name: {event.name}</p>
               <p>Desc: {event.description}</p>
-              <p>Amenities: {event.amenities.join(", ")}</p>
               <button
                 type="button"
                 onClick={() =>
@@ -220,85 +224,85 @@ export const NewTripForm = () => {
             </button>
           )}
 
-      {adding && (
-        <div className="my-4">
-          <div className="mb-4">
-            <label
-              htmlFor="eventname"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Event Name
-            </label>
-            <input
-              value={eventName}
-              onChange={(e) => setEventName(e.target.value)}
-              type="text"
-              name="eventname"
-              placeholder="Event Name"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="eventdesc"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Event Description
-            </label>
-            <input
-              value={eventDescription}
-              onChange={(e) => setEventDescription(e.target.value)}
-              type="text"
-              name="eventdesc"
-              placeholder="Event Description"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mb-4">
-        <label
-          htmlFor="eventstart"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Event Timing
-        </label>
-        <input
-          value={eventTime}
-          onChange={(e) => setEventTime(e.target.value)}
-          type="datetime-local"
-          name="eventstart"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
-      </div>
-      <div>
-        <button
-          type="button"
-          onClick={() => {
-            setTripEvents((te) => [
-              ...te,
-              {
-                name: eventName,
-                description: eventDescription,
-                time: eventTime,
-                amenities: eventAmenities,
-              },
-            ]);
-            clearEvent();
-            setAdding(false);
-          }}
-          className="mr-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Add
-        </button>
-        <button
-          type="button"
-          onClick={() => setAdding(false)}
-          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Close
-        </button>
-      </div>
-        </div>
-      )}
+          {adding && (
+            <div className="my-4">
+              <div className="mb-4">
+                <label
+                  htmlFor="eventname"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Event Name
+                </label>
+                <input
+                  value={eventName}
+                  onChange={(e) => setEventName(e.target.value)}
+                  type="text"
+                  name="eventname"
+                  placeholder="Event Name"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="eventdesc"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Event Description
+                </label>
+                <input
+                  value={eventDescription}
+                  onChange={(e) => setEventDescription(e.target.value)}
+                  type="text"
+                  name="eventdesc"
+                  placeholder="Event Description"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="eventstart"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Event Timing
+                </label>
+                <input
+                  value={eventTime}
+                  onChange={(e) => setEventTime(e.target.value)}
+                  type="datetime-local"
+                  name="eventstart"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTripEvents((te) => [
+                      ...te,
+                      {
+                        name: eventName,
+                        description: eventDescription,
+                        time: eventTime,
+                        amenities: eventAmenities,
+                      },
+                    ]);
+                    clearEvent();
+                    setAdding(false);
+                  }}
+                  className="mr-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Add
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAdding(false)}
+                  className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
               Amenities
@@ -310,21 +314,20 @@ export const NewTripForm = () => {
                     type="checkbox"
                     className="form-checkbox h-5 w-5 text-indigo-600"
                     checked={eventAmenities.includes(amenity)}
-                    onChange={() =>
+                    onChange={() => {
                       setEventAmenities((amenities) =>
                         amenities.includes(amenity)
                           ? amenities.filter((item) => item !== amenity)
                           : [...amenities, amenity]
-                      )
-                    }
+                      );
+                    }}
                   />
                   <span className="ml-2">{amenity}</span>
                 </label>
               ))}
             </div>
           </div>
-      
-    
+
           <button
             disabled={loading}
             className=" btn btn-primary  disabled:opacity-30 disabled:cursor-not-allowed"
@@ -333,7 +336,6 @@ export const NewTripForm = () => {
             {loading && <span className=" animate-spin"></span>}
           </button>
         </form>
-       
       </div>
     </div>
   );

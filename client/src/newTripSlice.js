@@ -21,6 +21,7 @@ const tripSchema = z.object({
   ),
   agent: z.string(),
   images: z.any().refine((val) => val.length > 0, "File is required"),
+  amenities: z.array(z.string()),
 });
 
 export const createTripAsync = createAsyncThunk(
@@ -33,6 +34,11 @@ export const createTripAsync = createAsyncThunk(
 
       if (parsed.success) {
         const validated = parsed.data;
+        validated.timeline = validated.timeline.map((e) => ({
+          ...e,
+          time: new Date(e.time),
+        }));
+
         let imageUrls = [];
         for (let image of validated.images) {
           console.log(image);
