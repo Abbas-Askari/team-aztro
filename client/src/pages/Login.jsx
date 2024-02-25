@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { loginAsync } from "../authSlice";
 import { useForm } from "react-hook-form";
-import ImgSrc from "../components/login7.jpg"
+import ImgSrc from "../components/login11.jpg"
 
 const Login = () => {
 
